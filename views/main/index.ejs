@@ -1,0 +1,867 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <!--=============================
+        BANNER START
+    ==============================-->
+    <section class="banner" style="background: url(assets/images/main-bg.jpg);">
+        <div class="banner_overly">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-9">
+                        <div class="banner_contant intro animate-clip wow fadeInUp" data-wow-duration="1.5s">
+                            <h1 class="ah-headline">
+                                <span>Find Nearby Place In</span>
+                                <span class="ah-words-wrapper">
+                                    <b class="is-visible">Restaurants</b>
+                                    <b>Advertising</b>
+                                    <b>Education</b>
+                                    <b>E-Commerce</b>
+                                    <b>Home & Garden</b>
+                                    <b>Real Estate</b>
+                                    <b>Industry</b>
+                                    <b>Entertainment</b>
+                                </span>
+                            </h1>
+                            <p>Comprehensive outcomes will be generated based on the specified location.</p>
+                            <form action=" #" class="banner_form">
+                                <ul class="d-flex flex-wrap">
+                                    <li class="banner_input">
+                                        <input type="text" placeholder="What are you looking for?">
+                                        <span><img src="assets/images/search_icon.png" alt="search"
+                                                class="img-fluid w-100"></span>
+                                    </li>
+                                    <li class="banner_selector">
+                                        <select class="select_2" name="state">
+                                            <option value="">Location</option>
+                                            <option value="">dhaka</option>
+                                            <option value="">dubai</option>
+                                            <option value="">london</option>
+                                            <option value="">new york</option>
+                                        </select>
+                                    </li>
+                                    <li class="banner_selector">
+                                        <select class="select_2" name="state">
+                                            <option value="">All Categories</option>
+                                            <option value="">category 1</option>
+                                            <option value="">category 2</option>
+                                            <option value="">category 3</option>
+                                        </select>
+                                    </li>
+                                    <li class="banner_btn">
+                                        <button class="common_btn" type="submit">search</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        BANNER END
+    ==============================-->
+
+
+    <!--=============================
+        CATEGORY START
+    ==============================-->
+    <section class="category">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <div class="category_area">
+                        <div class=" row category_slider">
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_1.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Hotels</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_2.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Eat & Drink</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_3.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Events</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_4.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Real Estate</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_5.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Fitness</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_1.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Hotels</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_2.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Eat & Drink</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_3.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Events</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_4.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Real Estate</p>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 wow fadeInUp" data-wow-duration="1.5s">
+                                <a href="listing_left_sidebar.html">
+                                    <span>
+                                        <img src="assets/images/categoris_5.png" alt="img" class="img-fluid w-100">
+                                    </span>
+                                    <p>Fitness</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        CATEGORY END
+    ==============================-->
+
+
+    <!--=============================
+        FEATURE START
+    ==============================-->
+    <section class="feature pt_115 xs_pt_95 pb_120 xs_pb_100">
+        <div class="container">
+            <div class="row  justify-content-between mb_25">
+                <div class="col-xl-6 col-md-8 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="section_title section_title_left">
+                        <h4>Most Popular</h4>
+                        <h2>Leading Featured Category</h2>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class=" all_feature_link">
+                        <a href="category.html">See More Categories<i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_1.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Restaurant
+                            <b>24 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_2.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Hotels
+                            <b>15 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_3.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Stand Up
+                            <b>49 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href=" listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_4.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            harlan store
+                            <b>38 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_5.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Sport Club
+                            <b>28 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_6.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Dancing Club
+                            <b>49 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_7.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Francisco club
+                            <b>13 Listings</b>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <a href="listing_left_sidebar.html" class="feature_item">
+                        <div class="img">
+                            <img src="assets/images/feature_8.jpg" alt="img" class="img-fluid w-100">
+                        </div>
+                        <span class="text">
+                            Shop - Store
+                            <b>16 Listings</b>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        FEATURE END
+    ==============================-->
+
+
+    <!--=============================
+        LISTING START
+    ==============================-->
+    <section class="listing pt_115 xs_pt_95 pb_120 xs_pb_100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="section_title mb_50">
+                        <h4>Popular Listings</h4>
+                        <h2>Prime & Popularized Listings</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row listing_slider">
+                <div class="col-xl-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="listing_item">
+                        <div class="listing_img">
+                            <img src="assets/images/listing_8.jpg" alt="img" class="img-fluid w-100">
+                            <a href="#" class="category"><i class="fas fa-star"></i>Featured</a>
+                            <a class="love" href="#"><i class="fas fa-heart"></i></a>
+                        </div>
+                        <div class="listing_text">
+                            <a href="listing_details.html">Luctus Risus sit amet</a>
+                            <ul>
+                                <li><i class="fas fa-map-marker-alt"></i>EC4M Road, United London</li>
+                                <li><i class="fas fa-phone-alt"></i>+088 45 398 7855</li>
+                            </ul>
+                            <div class="listing_bottom">
+                                <p>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(4.5)</span>
+                                </p>
+                                <ul class="d-flex flex-wrap">
+                                    <li><span><img src="assets/images/eye.png" alt="img"
+                                                class="img-fluid w-100"></span>798</li>
+                                    <li><span><img src="assets/images/comment.png" alt="img"
+                                                class="img-fluid w-100"></span>24</li>
+                                </ul>
+                            </div>
+                            <span class="person"><img src="assets/images/comment_1.png" alt="person"
+                                    class="img-fluid w-100"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="listing_item">
+                        <div class="listing_img">
+                            <img src="assets/images/listing_1.jpg" alt="img" class="img-fluid w-100">
+                            <a href="#" class="category"><i class="fas fa-star"></i>Hotel</a>
+                            <a href="#" class="love"><i class="fas fa-heart"></i></a>
+                        </div>
+                        <div class="listing_text">
+                            <a href="listing_details.html">Food & Restourant</a>
+                            <ul>
+                                <li><i class="fas fa-map-marker-alt"></i>EC4M Road, United London</li>
+                                <li><i class="fas fa-phone-alt"></i>+088 45 398 7855</li>
+                            </ul>
+                            <div class="listing_bottom">
+                                <p>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(5.0)</span>
+                                </p>
+                                <ul class="d-flex flex-wrap">
+                                    <li><span><img src="assets/images/eye.png" alt="img"
+                                                class="img-fluid w-100"></span>573</li>
+                                    <li><span><img src="assets/images/comment.png" alt="img"
+                                                class="img-fluid w-100"></span>30</li>
+                                </ul>
+                            </div>
+                            <span class="person"><img src="assets/images/comment_2.png" alt="person"
+                                    class="img-fluid w-100"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="listing_item">
+                        <div class="listing_img">
+                            <img src="assets/images/listing_3.jpg" alt="img" class="img-fluid w-100">
+                            <a href="#" class="category"><i class="fas fa-star"></i>park</a>
+                            <a href="#" class="love"><i class="fas fa-heart"></i></a>
+                        </div>
+                        <div class="listing_text">
+                            <a href="listing_details.html">Bambi Planet House</a>
+                            <ul>
+                                <li><i class="fas fa-map-marker-alt"></i>EC4M Road, United London</li>
+                                <li><i class="fas fa-phone-alt"></i>+088 45 398 7855</li>
+                            </ul>
+                            <div class="listing_bottom">
+                                <p>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(4.5)</span>
+                                </p>
+                                <ul class="d-flex flex-wrap">
+                                    <li><span><img src="assets/images/eye.png" alt="img"
+                                                class="img-fluid w-100"></span>478</li>
+                                    <li><span><img src="assets/images/comment.png" alt="img"
+                                                class="img-fluid w-100"></span>52</li>
+                                </ul>
+                            </div>
+                            <span class="person"><img src="assets/images/comment_3.png" alt="person"
+                                    class="img-fluid w-100"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="listing_item">
+                        <div class="listing_img">
+                            <img src="assets/images/listing_4.jpg" alt="img" class="img-fluid w-100">
+                            <a href="#" class="category"><i class="fas fa-star"></i>Restaurant</a>
+                            <a href="#" class="love"><i class="fas fa-heart"></i></a>
+                        </div>
+                        <div class="listing_text">
+                            <a href="listing_details.html">Chontaduro Barcelona</a>
+                            <ul>
+                                <li><i class="fas fa-map-marker-alt"></i>EC4M Road, United London</li>
+                                <li><i class="fas fa-phone-alt"></i>+088 45 398 7855</li>
+                            </ul>
+                            <div class="listing_bottom">
+                                <p>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(4.5)</span>
+                                </p>
+                                <ul class="d-flex flex-wrap">
+                                    <li><span><img src="assets/images/eye.png" alt="img"
+                                                class="img-fluid w-100"></span>325</li>
+                                    <li><span><img src="assets/images/comment.png" alt="img"
+                                                class="img-fluid w-100"></span>98</li>
+                                </ul>
+                            </div>
+                            <span class="person"><img src="assets/images/blog_3_owner_2.png" alt="person"
+                                    class="img-fluid w-100"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        LISTING END
+    ==============================-->
+
+
+    <!--=============================
+        PROCESS START
+    ==============================-->
+    <section class="process pt_115 xs_pt_95 pb_75 xs_pb_80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="section_title mb_25">
+                        <h4>Ideal Approach</h4>
+                        <h2>How it Works</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="process_item process_item_1">
+                        <div class="img">
+                            <img src="assets/images/process_icon_1.png" alt="icon" class="img-fluid w-100">
+                        </div>
+                        <div class="text">
+                            <h4>Find Interesting Place</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetu
+                                adipiscing elit. Nam placerat elit ac nulla nec
+                                ullamcorper risus dignissim.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="process_item process_item_2">
+                        <div class="img">
+                            <img src="assets/images/process_icon_2.png" alt="icon" class="img-fluid w-100">
+                        </div>
+                        <div class="text">
+                            <h4>Contact a Few Owners</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetu
+                                adipiscing elit. Nam placerat elit ac nulla nec
+                                ullamcorper risus dignissim.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="process_item">
+                        <div class="img">
+                            <img src="assets/images/process_icon_3.png" alt="icon" class="img-fluid w-100">
+                        </div>
+                        <div class="text">
+                            <h4>Make a Reservation</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetu
+                                adipiscing elit. Nam placerat elit ac nulla nec
+                                ullamcorper risus dignissim.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        PROCESS END
+    ==============================-->
+
+
+    <!--=============================
+        COUNTER START
+    ==============================-->
+    <section class="counter_area pb_120 xs_pb_100">
+        <div class="container">
+            <div class="row wow fadeInUp" data-wow-duration="1.5s">
+                <div class="col-xl-12">
+                    <ul class="d-flex flex-wrap">
+                        <li>
+                            <h4><span class="counter">74</span>+</h4>
+                            <p>Honors Received</p>
+                        </li>
+                        <li>
+                            <h4><span class="counter">93</span>k</h4>
+                            <p>Granted Listing</p>
+                        </li>
+                        <li>
+                            <h4><span class="counter">85</span>+</h4>
+                            <p>Expert People</p>
+                        </li>
+                        <li>
+                            <h4><span class="counter">67</span>k</h4>
+                            <p>Happy Customers</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        COUNTER END
+    ==============================-->
+
+
+    <!--=============================
+        PRICING START
+    ==============================-->
+    <section class="pricing pt_115 xs_pt_95 pb_120 xs_pb_100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="section_title mb_50">
+                        <h4>Pricing Plan</h4>
+                        <h2>Opt For Your Membership</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center wow fadeInUp" data-wow-duration="1.5s">
+                <div class="col-xxl-4 col-sm-8 col-md-7 col-lg-6 col-xl-5">
+                    <ul class="nav pricing_nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link monthly active" id="pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                aria-selected="true"><span>Billed monthly</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link yearly" id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false"><span>Billed yearly</span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                    tabindex="0">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Free</h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$0 <span>/month</span></h3>
+                                <ul>
+                                    <li>Duration: 5 days</li>
+                                    <li>10 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>raw price</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Basic</h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$34 <span>/month</span></h3>
+                                <ul>
+                                    <li>Duration: 10 days</li>
+                                    <li>20 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>raw price</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Premium </h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$68 <span>/month</span></h3>
+                                <ul>
+                                    <li>Duration: 20 days</li>
+                                    <li>30 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>Business Hours</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>gold </h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$79 <span>/month</span></h3>
+                                <ul>
+                                    <li>Duration: 30 days</li>
+                                    <li>40 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>Business Hours</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                    tabindex="0">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Free</h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$0 <span>/year</span></h3>
+                                <ul>
+                                    <li>Duration: 5 days</li>
+                                    <li>10 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>raw price</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Basic</h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$34 <span>/year</span></h3>
+                                <ul>
+                                    <li>Duration: 10 days</li>
+                                    <li>20 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>raw price</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>Premium </h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$68 <span>/year</span></h3>
+                                <ul>
+                                    <li>Duration: 20 days</li>
+                                    <li>30 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>Business Hours</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="pricing_item">
+                                <h5>gold </h5>
+                                <p>Ut non metus estibulum neque a quam molestie.</p>
+                                <h3>$79 <span>/year</span></h3>
+                                <ul>
+                                    <li>Duration: 30 days</li>
+                                    <li>40 Listing</li>
+                                    <li>Contact Display</li>
+                                    <li>Price Range</li>
+                                    <li>Business Hours</li>
+                                </ul>
+                                <a href="#">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        PRICING END
+    ==============================-->
+
+
+    <!--=============================
+        TESTIMONIAL START
+    ==============================-->
+    <section class="testimonial" style="background: url(assets/images/Testimonial_bg.jpg);">
+        <div class="testimonial_overly pt_115 xs_pt_95 pb_120 xs_pb_100">
+            <div class="container">
+                <div class="row">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="section_title mb_40">
+                                <h4>Client Testimonials</h4>
+                                <h2>What Say Our Customers</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row testimonial_slider justify-content-center">
+                    <div class="col-12">
+                        <div class="row wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="col-xl-7 col-md-9 m-auto">
+                                <div class="testimonial_item">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <p>“Morbi consectetur elementum purus mattis cursus purus vel metus iaculis
+                                        sagittis.
+                                        Vestibulum molestie bibendum turpis luctus sem lacinia quis. Quisque amet velit
+                                        sit amet
+                                        dui hendrerit ultricies a id ipsum Mauris sit ame lacinia est, vitae tristique
+                                        metus
+                                        tempor nibh ultricies.”</p>
+                                    <div class="name">
+                                        <h5>Dominic L. Emen</h5>
+                                        <h6>Product Designer</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row wow fadeInUp" data-wow-duration="1.5s">
+                            <div class="col-xl-7 col-md-9 m-auto">
+                                <div class="testimonial_item">
+                                    <span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <p>“Morbi consectetur elementum purus mattis cursus purus vel metus iaculis
+                                        sagittis.
+                                        Vestibulum molestie bibendum turpis luctus sem lacinia quis. Quisque amet velit
+                                        sit amet
+                                        dui hendrerit ultricies a id ipsum Mauris sit ame lacinia est, vitae tristique
+                                        metus
+                                        tempor nibh ultricies.”</p>
+                                    <div class="name">
+                                        <h5>Dominic L. Emen</h5>
+                                        <h6>Product Designer</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        TESTIMONIAL END
+    ==============================-->
+
+
+    <!--=============================
+        BLOG START
+    ==============================-->
+    <section class="blog pt_115 xs_pt_95 pb_115 xs_pb_95">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="section_title mb_25">
+                        <h4>Read Our Blog</h4>
+                        <h2>Latest Tips & Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="blog_item">
+                        <a href="blog_details.html" class="img">
+                            <img src="assets/images/blog_1.jpg" alt="img" class="img-fluid w-100">
+                        </a>
+                        <div class="blog_text">
+                            <ul class="d-flex flex-wrap">
+                                <li class="event"><a href="#">Events</a></li>
+                                <li class="date">
+                                    <span><img src="assets/images/calender.png" alt="icon"
+                                            class="img-fluid w-100"></span>
+                                    March 24, 2023
+                                </li>
+                            </ul>
+                            <a href="blog_details.html" class="title">Supreme Shopping Facility at The Central
+                                Branch.</a>
+                            <a href="blog_details.html" class="link">Read More<i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="blog_item">
+                        <a href="blog_details.html" class="img">
+                            <img src="assets/images/blog_2.jpg" alt="img" class="img-fluid w-100">
+                        </a>
+                        <div class="blog_text">
+                            <ul class="d-flex flex-wrap">
+                                <li class="event"><a href="#">Hotel</a></li>
+                                <li class="date">
+                                    <span><img src="assets/images/calender.png" alt="icon"
+                                            class="img-fluid w-100"></span>
+                                    April 15, 2023
+                                </li>
+                            </ul>
+                            <a href="blog_details.html" class="title">The Hotel is Filled with Enchantment &
+                                uniqueness.</a>
+                            <a href="blog_details.html" class="link">Read More<i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-duration="1.5s">
+                    <div class="blog_item">
+                        <a href="blog_details.html" class="img">
+                            <img src="assets/images/blog_3.jpg" alt="img" class="img-fluid w-100">
+                        </a>
+                        <div class="blog_text">
+                            <ul class="d-flex flex-wrap">
+                                <li class="event"><a href="#">Restaurant</a></li>
+                                <li class="date">
+                                    <span><img src="assets/images/calender.png" alt="icon"
+                                            class="img-fluid w-100"></span>
+                                    June 25, 2024
+                                </li>
+                            </ul>
+                            <a href="blog_details.html" class="title">This Eatery Frequently Handles Sizable
+                                Banquets.</a>
+                            <a href="blog_details.html" class="link">Read More<i class="far fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        BLOG END
+    ==============================-->
+    <%- include('../includes/footer.ejs') %>
+
+</body>
+
+</html>
