@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-12 justify-content-center">
                         <div class="breadcrumb_text wow fadeInUp" data-wow-duration="1.5s">
-                            <h1>Signup</h1>
+                            <h1>Email Verification</h1>
                             <ul class="d-flex flex-wrap justify-content-center">
                                 <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
                                 <li><a href="/signup">Signup</a></li>
@@ -39,8 +39,11 @@
                         <div class="row">
                             <div class="col-xl-12 wow fadeInLeft" data-wow-duration="1.5s">
                                 <div class="login_text">
-                                    <p>Thank you for signing up.<br>Please check your email to verify yourself.</p>
+                                    <p><%=message %></p>
                                 </div>
+                                <% if (!error) { %>
+                                    <p><a href="/login">Login Now</a></p>
+                                <% } %>
                             </div>
                         </div>
                     </div>

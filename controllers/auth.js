@@ -160,17 +160,47 @@ export async function getFinished(req, res, next) {
 }
 
 export async function getConfirmation(req, res, next) {
-    const token = await Token.findOne({ token: req.params.token });
-    if (!token) {
+    try {
+        const token = await Token.findOne({ token: req.params.token });
+        if (!token) {
+            return res.status(400).render('auth/confirmation', {
+                path: '/confirmation',
+                pageTitle: 'Email Verification',
+                error: true,
+                message:
+                    'We were unable to find a valid token. your token may have expired'
+            });
+        }
+        const user = await User.findOne({ _id: token._userId });
+        if (!user) {
+            return res.status(400).render('auth/confirmation', {
+                path: '/confirmation',
+                pageTitle: 'Email Verification',
+                error: true,
+                message: 'We were unable to find a user for this token.'
+            });
+        }
+        if (user.isVerified) {
+            return res.status(400).render('auth/confirmation', {
+                path: '/confirmation',
+                pageTitle: 'Email Verification',
+                error: false,
+                message: 'This user has already been verified'
+            });
+        }
+        user.isVerified = true;
+        await user.save();
         return res.status(400).render('auth/confirmation', {
             path: '/confirmation',
             pageTitle: 'Email Verification',
-            error: true,
-            message:
-                'We were unable to find a valid token. your token may have expired'
+            error: false,
+            message: 'Thank you for verifying your account.'
         });
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     }
-    const user = await User.findOne({ _id: token._userId });
 }
 
 export async function postResendToken(req, res, next) {}
