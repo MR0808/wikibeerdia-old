@@ -25,17 +25,17 @@ const store = new MongoDBStore({
     collection: 'sessions'
 });
 
-const { csrfSynchronisedProtection } = csrfSync({
-    getTokenFromRequest: (req) => {
-        if (
-            req.is('multipart') ||
-            req.is('application/x-www-form-urlencoded')
-        ) {
-            return req.body['CSRFToken'];
-        }
-        return req.headers['x-csrf-token'];
-    }
-});
+// const { csrfSynchronisedProtection } = csrfSync({
+//     getTokenFromRequest: (req) => {
+//         if (
+//             req.is('multipart') ||
+//             req.is('application/x-www-form-urlencoded')
+//         ) {
+//             return req.body['CSRFToken'];
+//         }
+//         return req.headers['x-csrf-token'];
+//     }
+// });
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -101,7 +101,7 @@ app.use(
         store: store
     })
 );
-app.use(csrfSynchronisedProtection);
+// app.use(csrfSynchronisedProtection);
 
 app.use((req, res, next) => {
     ['log', 'warn'].forEach(function (method) {
@@ -117,7 +117,7 @@ app.use((req, res, next) => {
         };
     });
     res.locals.isAuthenticated = req.session.isLoggedIn;
-    res.locals.csrfToken = req.csrfToken(true);
+    // res.locals.csrfToken = req.csrfToken(true);
     next();
 });
 

@@ -17,12 +17,13 @@ const router = express.Router();
 
 router.get('/signup', authController.getSignup);
 
-router.post(
-    '/signup',
-    ...validators.signup,
-    ...sanitizers.signup,
-    authController.postSignup
-);
+router.post('/signup', ...validators.signup, authController.postSignup);
+
+router.get('/finished', authController.getFinished);
+
+router.get('/confirmation/:token', authController.getConfirmation);
+
+router.post('/resend', authController.postResendToken);
 
 // router.post('/logout', authController.postLogout);
 

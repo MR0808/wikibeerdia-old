@@ -5396,10 +5396,6 @@ button {
     width: 48% !important;
 }
 
-.right {
-    float: right;
-}
-
 .single_input {
     position: relative;
 }
@@ -7398,4 +7394,10 @@ button {
 
 .white {
     color: var(--colorWhite);
+}
+
+.error_text {
+    margin-top: 5px !important;
+    color: #ae4e38;
+    text-align: left !important;
 }

@@ -26,7 +26,13 @@ var userSchema = new Schema(
             enum: ['Male', 'Female', 'Other', 'NotSay']
         },
         country: String,
-        profilePicture: String
+        profilePicture: String,
+        isVerified: {
+            type: Boolean,
+            default: false
+        },
+        passwordResetToken: String,
+        passwordResetExpires: Date
     },
     { timestamps: true }
 );

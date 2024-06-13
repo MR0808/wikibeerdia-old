@@ -1,8 +1,11 @@
 import crypto from 'crypto';
-import { error } from 'console';
 
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
+import { MailService } from '@sendgrid/mail';
+
+import User from '../models/user.js';
+import Token from '../models/token.js';
 
 // export const getLogin = (req, res, next) => {
 //     let message = req.flash('error');
@@ -102,14 +105,11 @@ export const getSignup = (req, res, next) => {
 export async function postSignup(req, res, next) {
     const body = req.body;
     const errors = validationResult(req);
-    const mappedErrors = validationResult(req)
-        .formatWith((e) => e.msg)
-        .mapped();
     if (!errors.isEmpty()) {
+        if (body.email === '@') body.email = '';
         return res.status(422).render('auth/signup', {
             path: '/signup',
             pageTitle: 'Signup',
-            errorMessage: errors.array()[0].msg,
             oldInput: {
                 firstName: body.firstName,
                 lastName: body.lastName,
@@ -118,31 +118,62 @@ export async function postSignup(req, res, next) {
             validationErrors: errors.array()
         });
     }
-    bcrypt
-        .hash(password, 12)
-        .then((hashedPassword) => {
-            const user = new User({
-                email: email,
-                password: hashedPassword,
-                cart: { items: [] }
-            });
-            return user.save();
-        })
-        .then((result) => {
-            res.redirect('/login');
-            return transporter.sendMail({
-                to: email,
-                from: 'kram@grebnesor.com',
-                subject: 'Signup succeeded!',
-                html: '<h1>You successfully signed up!</h1>'
-            });
-        })
-        .catch((err) => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+    try {
+        const hashedPassword = await bcrypt.hash(body.password, 12);
+        const user = new User({
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email,
+            password: hashedPassword
         });
+        const newUser = await user.save();
+        const token = new Token({
+            _userId: newUser._id,
+            token: crypto.randomBytes(16).toString('hex')
+        });
+        await token.save();
+        const mail = new MailService();
+        mail.setApiKey(process.env.SENDGRID_KEY);
+        const message = {
+            to: body.email,
+            subject: 'Verify your email',
+            from: {
+                name: 'Mark @ Wikibeerdia',
+                email: 'mark@wikibeerdia.com'
+            },
+            html: `Hello,<br>Please verify your account by clicking the link: <a href="http://${req.headers.host}/confirmation/${token.token}">http://${req.headers.host}/confirmation/${token.token}</a>`
+        };
+        await mail.send(message);
+        res.redirect('/finished');
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
 }
+
+export async function getFinished(req, res, next) {
+    res.render('auth/finished', {
+        path: '/confirmation',
+        pageTitle: 'Check your email'
+    });
+}
+
+export async function getConfirmation(req, res, next) {
+    const token = await Token.findOne({ token: req.params.token });
+    if (!token) {
+        return res.status(400).render('auth/confirmation', {
+            path: '/confirmation',
+            pageTitle: 'Email Verification',
+            error: true,
+            message:
+                'We were unable to find a valid token. your token may have expired'
+        });
+    }
+    const user = await User.findOne({ _id: token._userId });
+}
+
+export async function postResendToken(req, res, next) {}
 
 export const postLogout = (req, res, next) => {
     req.session.destroy((err) => {

@@ -40,30 +40,48 @@
                             <div class="col-xl-6 wow fadeInLeft" data-wow-duration="1.5s">
                                 <div class="login_text">
                                     <h4>Registration</h4>
-                                    <div class="accordion-item">
-                                        <p>The following fields need fixing</p>
-                                    </div>
                                     <form action="/signup" method="POST" novalidate>
                                         <div class="single_input">
                                             <label>Name</label>
-                                            <div class="double_input">
-                                                <input type="text" name="firstName" id="firstName" placeholder="First Name" class="<%= validationErrors.find( e => e.path === 'firstName') ? 'invalid' : '' %>" value="<%= oldInput.firstName %>">
-                                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="right <%= validationErrors.find( e => e.path === 'lastName') ? 'invalid' : '' %>" value="<%= oldInput.lastName %>">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input type="text" name="firstName" id="firstName" placeholder="First Name" class="<%= validationErrors.find( e => e.path === 'firstName') ? 'invalid' : '' %>" value="<%= oldInput.firstName %>">
+                                                    <% if (validationErrors.find( e => e.path === 'firstName')) { %>
+                                                        <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
+                                                    <% } %>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="<%= validationErrors.find( e => e.path === 'lastName') ? 'invalid' : '' %>" value="<%= oldInput.lastName %>">
+                                                    <% if (validationErrors.find( e => e.path === 'lastName')) { %>
+                                                        <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
+                                                    <% } %>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="single_input">
                                             <label>Email</label>
                                             <input type="email" name="email" id="email" placeholder="Email" class="<%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>" value="<%= oldInput.email %>">
+                                            <% if (validationErrors.find( e => e.path === 'email')) { %>
+                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
+                                                    const emailError = validationErrors.find( e => e.path === 'email');
+                                                    %><%= emailError.msg; %></p>
+                                            <% } %>
                                         </div>
                                         <div class="single_input">
-                                            <label>Password</label>
+                                            <label>Password <i class="fal fa-info-circle" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="Password must contain:<br><ul><li>8 characters</li><li>One lowercase letter</li><li>One uppercase letter</li><li>One number</li><li>One symbol</li></ul>"></i></label>
                                             <input type="password" name="password" id="password" placeholder="********" class="<%= validationErrors.find( e => e.path === 'password') ? 'invalid' : '' %>">
+                                            <% if (validationErrors.find( e => e.path === 'password')) { %>
+                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a valid password</p>
+                                            <% } %>
                                         </div>
                                         <div class="single_input">
                                             <label>Confirm password</label>
                                             <input type="password" name="confirmPassword" id="confirmPassword" placeholder="********" class="<%= validationErrors.find( e => e.path === 'confirmPassword') ? 'invalid' : '' %>">
+                                            <% if (validationErrors.find( e => e.path === 'confirmPassword')) { %>
+                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Passwords must match</p>
+                                            <% } %>
                                         </div>
-                                        <input type="hidden" name="CSRFToken" value="<%= csrfToken %>">
+                                        <input type="hidden" name="CSRFToken" value="<%= true %>">
                                         <button class="common_btn" type="submit">Submit</button>
                                     </form>
                                     <p>Don’t you have an account? <a href="/login">login</a></p>
@@ -86,6 +104,11 @@
 
 
     <%- include('../includes/footer.ejs') %>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    </script>
 
 </body>
 
