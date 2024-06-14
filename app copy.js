@@ -19,14 +19,22 @@ const MongoDBStore = connectMongoDBSession(session);
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuiwnxj.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
-const { csrfSynchronisedProtection } = csrfSync({
-    getTokenFromRequest: (req) => req.body.csrfToken
-});
-
 const app = express();
 const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions'
+});
+
+const { csrfSynchronisedProtection } = csrfSync({
+    getTokenFromRequest: (req) => {
+        if (
+            req.is('multipart') ||
+            req.is('application/x-www-form-urlencoded')
+        ) {
+            return req.body['CSRFToken'];
+        }
+        return req.headers['x-csrf-token'];
+    }
 });
 
 app.set('view engine', 'ejs');
@@ -93,22 +101,21 @@ app.use(
         store: store
     })
 );
-
 app.use(csrfSynchronisedProtection);
 
 app.use((req, res, next) => {
-    // ['log', 'warn'].forEach(function (method) {
-    //     var old = console[method];
-    //     console[method] = function () {
-    //         var stack = new Error().stack.split(/\n/);
-    //         // Chrome includes a single "Error" line, FF doesn't.
-    //         if (stack[0].indexOf('Error') === 0) {
-    //             stack = stack.slice(1);
-    //         }
-    //         var args = [].slice.apply(arguments).concat([stack[1].trim()]);
-    //         return old.apply(console, args);
-    //     };
-    // });
+    ['log', 'warn'].forEach(function (method) {
+        var old = console[method];
+        console[method] = function () {
+            var stack = new Error().stack.split(/\n/);
+            // Chrome includes a single "Error" line, FF doesn't.
+            if (stack[0].indexOf('Error') === 0) {
+                stack = stack.slice(1);
+            }
+            var args = [].slice.apply(arguments).concat([stack[1].trim()]);
+            return old.apply(console, args);
+        };
+    });
     res.locals.isAuthenticated = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken(true);
     next();

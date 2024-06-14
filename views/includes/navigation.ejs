@@ -48,7 +48,7 @@
                             <li><a href="checkout.html">checkout</a></li>
                             <li>
                                 <form action="/logout" method="post">
-                                    <input type="hidden" name="CSRFToken" value="<%= true %>">
+                                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
                                     <button class="menu_button" type="submit">Logout</button>
                                 </form>
                             </li>

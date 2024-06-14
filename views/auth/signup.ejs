@@ -81,7 +81,7 @@
                                                 <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Passwords must match</p>
                                             <% } %>
                                         </div>
-                                        <input type="hidden" name="CSRFToken" value="<%= true %>">
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
                                         <button class="common_btn" type="submit">Submit</button>
                                     </form>
                                     <p>Don’t you have an account? <a href="/login">Login</a></p>

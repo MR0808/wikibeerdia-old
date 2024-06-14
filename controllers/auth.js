@@ -194,12 +194,12 @@ export async function getConfirmation(req, res, next) {
 
 export async function postResendToken(req, res, next) {}
 
-export const postLogout = (req, res, next) => {
+export async function postLogout(req, res, next) {
     req.session.destroy((err) => {
-        // console.log(err);
+        console.log(err);
         res.redirect('/');
     });
-};
+}
 
 // exports.getReset = (req, res, next) => {
 //     let message = req.flash('error');
