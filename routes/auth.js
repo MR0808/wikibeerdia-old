@@ -6,18 +6,23 @@ import * as sanitizers from '../sanitizers/auth.js';
 
 const router = express.Router();
 
-// router.get('/login', authController.getLogin);
+router.get('/login', authController.getLogin);
 
-// router.post(
-//     '/login',
-//     ...validators.login,
-//     ...sanitizers.signup,
-//     authController.postLogin
-// );
+router.post(
+    '/login',
+    ...validators.login,
+    ...sanitizers.email,
+    authController.postLogin
+);
 
 router.get('/signup', authController.getSignup);
 
-router.post('/signup', ...validators.signup, authController.postSignup);
+router.post(
+    '/signup',
+    ...validators.signup,
+    ...sanitizers.email,
+    authController.postSignup
+);
 
 router.get('/finished', authController.getFinished);
 
@@ -25,7 +30,7 @@ router.get('/confirmation/:token', authController.getConfirmation);
 
 router.post('/resend', authController.postResendToken);
 
-// router.post('/logout', authController.postLogout);
+router.post('/logout', authController.postLogout);
 
 // router.get('/reset', authController.getReset);
 

@@ -47,9 +47,9 @@ export const signup = [
 export const login = [
     body('email')
         .exists({ checkFalsy: true })
-        .withMessage('You must type an email')
+        .withMessage('Please enter an email')
         .isEmail()
-        .withMessage('You must type a proper email'),
+        .withMessage('Please enter a valid email'),
     body('password')
         .exists({ checkFalsy: true })
         .withMessage('You must type a password')

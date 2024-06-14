@@ -7,92 +7,81 @@ import { MailService } from '@sendgrid/mail';
 import User from '../models/user.js';
 import Token from '../models/token.js';
 
-// export const getLogin = (req, res, next) => {
-//     let message = req.flash('error');
-//     if (message.length > 0) {
-//         message = message[0];
-//     } else {
-//         message = null;
-//     }
-//     res.render('auth/login', {
-//         path: '/login',
-//         pageTitle: 'Login',
-//         errorMessage: message,
-//         oldInput: {
-//             email: '',
-//             password: ''
-//         },
-//         validationErrors: []
-//     });
-// };
+export const getLogin = (req, res, next) => {
+    res.render('auth/login', {
+        path: '/login',
+        pageTitle: 'Login',
+        loginError: false,
+        oldInput: {
+            email: '',
+            password: ''
+        },
+        validationErrors: []
+    });
+};
 
-// export async function postLogin(req, res, next) {
-//     const email = req.body.email;
-//     const password = req.body.password;
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//         return res.status(422).render('auth/login', {
-//             path: '/login',
-//             pageTitle: 'Login',
-//             errorMessage: errors.array()[0].msg,
-//             oldInput: {
-//                 email: email,
-//                 password: password
-//             },
-//             validationErrors: errors.array()
-//         });
-//     }
-//     try {
-//         const user = await AdminUser.findOne({ email: email });
-//         if (!user) {
-//             return res.status(422).render('auth/login', {
-//                 path: '/login',
-//                 pageTitle: 'Login',
-//                 errorMessage: 'Invalid email or password.',
-//                 oldInput: {
-//                     email: email,
-//                     password: password
-//                 },
-//                 validationErrors: []
-//             });
-//         }
-//         const doMatch = await bcrypt.compare(password, user.password);
-//         if (doMatch) {
-//             if (req.body.remember) {
-//                 const hour = 3600000;
-//                 req.session.cookie.maxAge = 14 * 24 * hour; //2 weeks
-//             } else {
-//                 req.session.cookie.expires = false;
-//             }
-//             req.session.isLoggedIn = true;
-//             req.session.user = user;
-//             return req.session.save((err) => {
-//                 res.redirect('/');
-//             });
-//         } else {
-//             return res.status(422).render('auth/login', {
-//                 path: '/login',
-//                 pageTitle: 'Login',
-//                 errorMessage: 'Invalid email or password.',
-//                 oldInput: {
-//                     email: email,
-//                     password: password
-//                 },
-//                 validationErrors: []
-//             });
-//         }
-//     } catch (err) {
-//         const error = new Error(err);
-//         error.httpStatusCode = 500;
-//         return next(error);
-//     }
-// }
+export async function postLogin(req, res, next) {
+    const email = req.body.email;
+    const password = req.body.password;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).render('auth/login', {
+            path: '/login',
+            pageTitle: 'Login',
+            loginError: false,
+            oldInput: {
+                email: email
+            },
+            validationErrors: errors.array()
+        });
+    }
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(422).render('auth/login', {
+                path: '/login',
+                pageTitle: 'Login',
+                loginError: true,
+                oldInput: {
+                    email: email
+                },
+                validationErrors: []
+            });
+        }
+        const doMatch = await bcrypt.compare(password, user.password);
+        if (!doMatch) {
+            return res.status(422).render('auth/login', {
+                path: '/login',
+                pageTitle: 'Login',
+                loginError: true,
+                oldInput: {
+                    email: email
+                },
+                validationErrors: []
+            });
+        } else {
+            if (req.body.remember) {
+                const hour = 3600000;
+                req.session.cookie.maxAge = 14 * 24 * hour; //2 weeks
+            } else {
+                req.session.cookie.expires = false;
+            }
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            await req.session.save();
+            res.redirect('/');
+        }
+    } catch (err) {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
 
 export const getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        errorMessage: '',
         oldInput: {
             firstName: '',
             lastName: '',
@@ -207,7 +196,7 @@ export async function postResendToken(req, res, next) {}
 
 export const postLogout = (req, res, next) => {
     req.session.destroy((err) => {
-        console.log(err);
+        // console.log(err);
         res.redirect('/');
     });
 };

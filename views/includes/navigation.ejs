@@ -46,15 +46,12 @@
                             <li><a href="agent.html">agent</a></li>
                             <li><a href="agent_details.html">agent details</a></li>
                             <li><a href="checkout.html">checkout</a></li>
-                            <li><a href="payment.html">payment</a></li>
-                            <li><a href="pricing_plan.html">pricing plan</a></li>
-                            <li><a href="privacy_policy.html">privacy policy</a></li>
-                            <li><a href="terms_condition.html">Terms & condition</a></li>
-                            <li><a href="forgot_password.html">forgot password </a></li>
-                            <li><a href="faq.html">FAQ's</a></li>
-                            <li><a href="error.html">404</a></li>
-                            <li><a href="sign_in.html">sign in</a></li>
-                            <li><a href="sign_up.html">sign up</a></li>
+                            <li>
+                                <form action="/logout" method="post">
+                                    <input type="hidden" name="CSRFToken" value="<%= true %>">
+                                    <button class="menu_button" type="submit">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
