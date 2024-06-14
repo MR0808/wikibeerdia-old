@@ -55,3 +55,30 @@ export const login = [
         .withMessage('You must type a password')
         .trim()
 ];
+
+export const reset = [
+    body('email')
+        .exists({ checkFalsy: true })
+        .withMessage('Please enter an email')
+        .isEmail()
+        .withMessage('Please enter a valid email')
+];
+
+export const resetPassword = [
+    body(
+        'password',
+        'The password must be at least 8 characters long, contain one uppercase, one lowercase, one number and a symbol'
+    )
+        .isStrongPassword({
+            minLength: 8,
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1
+        })
+        .trim(),
+    body('confirmPassword')
+        .exists({ checkFalsy: true })
+        .custom((value, { req }) => value === req.body.password)
+        .trim()
+];

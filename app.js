@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import { default as connectMongoDBSession } from 'connect-mongodb-session';
 import helmet from 'helmet';
-import { csrfSync } from 'csrf-sync';
+// import { csrfSync } from 'csrf-sync';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -19,9 +19,9 @@ const MongoDBStore = connectMongoDBSession(session);
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuiwnxj.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
-const { csrfSynchronisedProtection } = csrfSync({
-    getTokenFromRequest: (req) => req.body.csrfToken
-});
+// const { csrfSynchronisedProtection } = csrfSync({
+//     getTokenFromRequest: (req) => req.body.csrfToken
+// });
 
 const app = express();
 const store = new MongoDBStore({
@@ -94,7 +94,7 @@ app.use(
     })
 );
 
-app.use(csrfSynchronisedProtection);
+// app.use(csrfSynchronisedProtection);
 
 app.use((req, res, next) => {
     // ['log', 'warn'].forEach(function (method) {
@@ -110,7 +110,8 @@ app.use((req, res, next) => {
     //     };
     // });
     res.locals.isAuthenticated = req.session.isLoggedIn;
-    res.locals.csrfToken = req.csrfToken(true);
+    // res.locals.csrfToken = req.csrfToken(true);
+    res.locals.csrfToken = true;
     next();
 });
 
