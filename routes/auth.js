@@ -28,8 +28,6 @@ router.get('/confirmation/:token', authController.getConfirmation);
 
 router.post('/resend', authController.postResendToken);
 
-router.get('/logout', authController.getLogout);
-
 router.post('/logout', authController.postLogout);
 
 router.get('/reset', authController.getReset);

@@ -22,13 +22,6 @@ export const getLogin = (req, res, next) => {
     });
 };
 
-export const getLogout = (req, res, next) => {
-    res.render('auth/logout', {
-        path: '/logout',
-        pageTitle: 'Logout'
-    });
-};
-
 export async function postLogin(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
@@ -320,7 +313,10 @@ export async function postNewPassword(req, res, next) {
         resetUser.resetToken = undefined;
         resetUser.resetTokenExpiration = undefined;
         await resetUser.save();
-        res.redirect('/login');
+        res.render('auth/new-finished', {
+            path: '/new-finished',
+            pageTitle: 'Reset Password'
+        });
     } catch (err) {
         const error = new Error(err);
         error.httpStatusCode = 500;

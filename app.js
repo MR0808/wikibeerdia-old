@@ -38,7 +38,12 @@ app.use(
         directives: {
             'default-src': ["'self'"],
             'script-src': ["'self'", "'unsafe-inline'", "'unsafe-hashes'"],
-            'script-src': ["'self'", "'unsafe-inline'", 'js.stripe.com'],
+            'script-src': [
+                "'self'",
+                "'unsafe-inline'",
+                'js.stripe.com',
+                'cdn.jsdelivr.net'
+            ],
             'style-src': [
                 "'self'",
                 "'unsafe-inline'",
@@ -58,6 +63,9 @@ app.use(
 
 import mainRoutes from './routes/main.js';
 import authRoutes from './routes/auth.js';
+import configRoutes from './routes/config.js';
+import locationRoutes from './routes/location.js';
+import breweryRoutes from './routes/brewery.js';
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -117,6 +125,9 @@ app.use((req, res, next) => {
 
 app.use(mainRoutes);
 app.use(authRoutes);
+app.use('/config', configRoutes);
+app.use('/location', locationRoutes);
+app.use('/breweries', breweryRoutes);
 
 app.get('/500', errorController.get500);
 
