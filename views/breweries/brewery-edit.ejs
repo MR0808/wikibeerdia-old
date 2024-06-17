@@ -39,7 +39,7 @@
     <section class="login_area pt_120 xs_pt_100 pb_120 xs_pb_100">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6 col-xl-6">
+                <div class="col-lg-7 col-xl-7">
                     <div class="main_login_area">
                         <div class="add_property_info wow fadeInLeft" data-wow-duration="1.5s">
                             <h3><% if (editing) { %>Edit<% } else { %>Add<% } %> Brewery</h3>
@@ -122,7 +122,18 @@
                                     <div class="col-xxl-12 col-md-12">
                                         <div class="add_property_input">
                                             <label>Images</label>
-                                            <div class="dropzone" id="myDropzone"></div>
+                                            <div class="drag-area">
+                                                <div class="drag-icon">
+                                                    <i class="fas fa-images"></i>
+                                                </div>
+                                                <span class="drag-header">Drag & Drop</span>
+                                                <span class="drag-header">or <span class="drag-button">browse</span></span>
+                                                <input class="drag-files" name="breweryImages" id="breweryImages" type="file" hidden multiple />
+                                                <span class="drag-support">Supports: JPEG, JPG, PNG</span>
+                                            </div>
+                                        </div>
+                                        <div class="row image-list">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +158,7 @@
 
     <%- include('../includes/footer.ejs') %>
     <script src="/assets/js/jquery.autocomplete.min.js"></script>
+    <script src="/assets/js/dragdrop.js"></script>
     
     <script>
         $('#cityName').autocomplete({
@@ -162,22 +174,6 @@
             minimumResultsForSearch: 10
         });
 
-        Dropzone.options.myDropzone = {
-            url: 'blackHole.php',
-            addRemoveLinks: true,
-            accept: function(file) {
-                let fileReader = new FileReader();
-
-                fileReader.readAsDataURL(file);
-                fileReader.onloadend = function() {
-
-                    let content = fileReader.result;
-                    $('#file').val(content);
-                    file.previewElement.classList.add("dz-success");
-                }
-                file.previewElement.classList.add("dz-complete");
-            }
-        }
     </script>
 
 </body>

@@ -33,8 +33,7 @@ var brewerySchema = new Schema(
         },
         images: [
             {
-                imageUrl: String,
-                isMain: Boolean
+                imageUrl: String
             }
         ],
         status: {
