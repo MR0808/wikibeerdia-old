@@ -1,9 +1,9 @@
-import Country from '../models/country.js';
-import State from '../models/state.js';
+// import Country from '../models/country.js';
+// import State from '../models/state.js';
 import City from '../models/city.js';
 
 export async function getCities(req, res, next) {
-    const city = req.query.query;
+    const city = req.body.query;
     const cities = await City.find({
         name: { $regex: '^' + city, $options: 'i' }
     })

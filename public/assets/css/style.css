@@ -7104,7 +7104,7 @@ button {
 .add_property_info form input,
 .add_property_info form textarea,
 .dashboard_profile_edit form input {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border: 1px solid rgba(3, 26, 38, 0.10);
 }
 
@@ -7407,6 +7407,12 @@ button {
     text-align: left !important;
 }
 
+.form_error_text {
+    margin-bottom: 5px !important;
+    color: #ae4e38 !important;
+    text-align: left !important;
+}
+
 .login_error {
     position: relative;
     padding: 25px 0px;
@@ -7544,6 +7550,11 @@ button {
     display: flex;
     row-gap: 20px;
     padding-top: 10px;
+}
+
+.hidden {
+    padding-bottom: 10px;
+    display: none;
 }
 
 .image-list .image-item {

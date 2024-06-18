@@ -38,7 +38,13 @@ var brewerySchema = new Schema(
         ],
         status: {
             type: String,
-            enum: ['Draft', 'Pending', 'Approved']
+            enum: ['Draft', 'Pending', 'Approved'],
+            default: 'Pending'
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
         }
     },
     { timestamps: true }

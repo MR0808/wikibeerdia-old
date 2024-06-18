@@ -43,14 +43,14 @@
                     <div class="main_login_area">
                         <div class="add_property_info wow fadeInLeft" data-wow-duration="1.5s">
                             <h3><% if (editing) { %>Edit<% } else { %>Add<% } %> Brewery</h3>
-                            <form action="/breweries/<% if (editing) { %>edit-brewery<% } else { %>add-brewery<% } %>" method="POST" novalidate>
+                            <form action="/breweries/<% if (editing) { %>edit-brewery<% } else { %>add-brewery<% } %>" method="POST" enctype="multipart/form-data" novalidate>
                                 <div class="row">
                                     <div class="col-xxl-12 col-md-12">
                                         <div class="add_property_input">
                                             <label>Name</label>
-                                            <input type="text" name="name" id="name" placeholder="Name" class="<%= validationErrors.find( e => e.path === 'name') ? 'invalid' : '' %>" value="<%= oldInput.name %>">
+                                            <input type="text" name="name" id="name" placeholder="Name" class="<%= validationErrors.find( e => e.path === 'name') ? 'invalid' : '' %>" value="<%= brewery.name %>">
                                             <% if (validationErrors.find( e => e.path === 'name')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery name</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery name</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -59,10 +59,10 @@
                                     <div class="col-xxl-12 col-md-12">
                                         <div class="add_property_input">
                                             <label>Location</label>
-                                            <input type="text" id="cityName" name="cityName" placeholder="Enter city" class="<%= validationErrors.find( e => e.path === 'city') ? 'invalid' : '' %>" value="<%= oldInput.cityName %>">
-                                            <input type="hidden" id="city" name="city" value="<%= oldInput.city %>">
+                                            <input type="text" id="cityName" name="cityName" placeholder="Enter city" class="<%= validationErrors.find( e => e.path === 'city') ? 'invalid' : '' %>" value="<%= brewery.cityName %>">
+                                            <input type="hidden" id="city" name="city" value="<%= brewery.city %>">
                                             <% if (validationErrors.find( e => e.path === 'city')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please select a brewery location</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please select a brewery location</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -71,9 +71,9 @@
                                     <div class="col-xxl-12 col-md-12">
                                         <div class="add_property_input">
                                             <label>Brewery Description</label>
-                                            <textarea name="description" id="description" class="<%= validationErrors.find( e => e.path === 'description') ? 'invalid' : '' %>" value="<%= oldInput.name %>" height="100px"><%= oldInput.description %></textarea>
+                                            <textarea name="description" id="description" class="<%= validationErrors.find( e => e.path === 'description') ? 'invalid' : '' %>" value="<%= brewery.name %>" height="100px"><%= brewery.description %></textarea>
                                             <% if (validationErrors.find( e => e.path === 'description')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery description</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery description</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -84,8 +84,20 @@
                                             <label>Logo</label>
                                             <input type="file" name="logo" id="logo">
                                             <% if (validationErrors.find( e => e.path === 'logo')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please upload a logo</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please upload a valid logo (JPG or PNG)</p>
                                             <% } %>
+                                        </div>
+                                        <div class="row image-list hidden">
+                                            <div class="col-xxl-4 col-md-6">
+                                                <div class="image-item">
+                                                    <img name="logoPreview" id="logoPreview">
+                                                    <ul class="">
+                                                        <li class="logo-delete">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -93,9 +105,9 @@
                                     <div class="col-xxl-12 col-md-12">
                                         <div class="add_property_input">
                                             <label>Website</label>
-                                            <input type="text" name="website" id="name" placeholder="Website" class="<%= validationErrors.find( e => e.path === 'website') ? 'invalid' : '' %>" value="<%= oldInput.website %>">
+                                            <input type="text" name="website" id="name" placeholder="Website" class="<%= validationErrors.find( e => e.path === 'website') ? 'invalid' : '' %>" value="<%= brewery.website %>">
                                             <% if (validationErrors.find( e => e.path === 'website')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery website</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a brewery website</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -113,7 +125,7 @@
                                                 <% } %>
                                             </select>
                                             <% if (validationErrors.find( e => e.path === 'type')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please select a brewery type</p>
+                                                <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please select a brewery type</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -159,10 +171,12 @@
     <%- include('../includes/footer.ejs') %>
     <script src="/assets/js/jquery.autocomplete.min.js"></script>
     <script src="/assets/js/dragdrop.js"></script>
+    <script src="/assets/js/image.js"></script>
     
     <script>
         $('#cityName').autocomplete({
             serviceUrl: 'http://localhost:3000/location/cities',
+            type: 'POST',
             minChars: 3,
             onSelect: function (suggestion) {
                 $("#city").val(suggestion.data);

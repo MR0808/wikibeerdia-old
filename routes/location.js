@@ -4,6 +4,6 @@ import * as locationController from '../controllers/location.js';
 
 const router = express.Router();
 
-router.get('/cities', locationController.getCities);
+router.post('/cities', locationController.getCities);
 
 export default router;

@@ -30,6 +30,11 @@ var beerSchema = new Schema(
         status: {
             type: String,
             enum: ['Draft', 'Pending', 'Approved']
+        },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
         }
     },
     { timestamps: true }
