@@ -9,6 +9,32 @@ import City from '../models/city.js';
 import BreweryType from '../models/breweryType.js';
 import deleteFile from '../util/file.js';
 
+export async function getBrewery(req, res, next) {
+    const breweryId = req.params.breweryId;
+    try {
+        const brewery = await Brewery.findById(breweryId)
+            .populate({ path: 'city', select: 'name' })
+            .populate({
+                path: 'city',
+                populate: { path: 'state', select: 'name' }
+            })
+            .populate({
+                path: 'city',
+                populate: { path: 'country', select: 'name' }
+            });
+        res.render('breweries/brewery-view', {
+            pageTitle: brewery.name,
+            path: '/brewery/brewery',
+            brewery: brewery
+        });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
 export async function getAddBrewery(req, res, next) {
     try {
         const types = await BreweryType.find().sort('name');
@@ -46,11 +72,13 @@ export async function postAddBrewery(req, res, next) {
     if (!logo) {
         logoError = true;
     } else {
-        logoUrl = logo[0].path.replace('\\', '/');
+        logoUrl = logo[0].path.replaceAll('\\', '/');
     }
     if (breweryImages) {
         for (let image of breweryImages) {
-            breweryImagesUrl.push({ imageUrl: image.path.replace('\\', '/') });
+            breweryImagesUrl.push({
+                imageUrl: image.path.replaceAll('\\', '/')
+            });
         }
     }
     errorsOld = validationResult(req);

@@ -377,7 +377,7 @@ button {
     text-align: center;
 }
 
-.breadcrumb_text ul li a {
+.breadcrumb_text ul li a, .breadcrumb_text ul li {
     font-size: 16px;
     font-weight: 500;
     font-family: var(--paraFont);
@@ -398,7 +398,7 @@ button {
     opacity: 1;
 }
 
-.breadcrumb_text ul li a::after {
+.breadcrumb_text ul li a::after, .breadcrumb_text ul li:after {
     position: absolute;
     content: "";
     width: 4px;
@@ -421,7 +421,7 @@ button {
     margin-right: 10px;
 }
 
-.breadcrumb_text ul li:last-child a::after {
+.breadcrumb_text ul li:last-child a::after, .breadcrumb_text ul li:last-child::after {
     display: none;
 }
 
