@@ -25,7 +25,14 @@ var userSchema = new Schema(
             type: String,
             enum: ['Male', 'Female', 'Other', 'NotSay']
         },
-        country: String,
+        state: {
+            type: Schema.Types.ObjectId,
+            ref: 'State'
+        },
+        country: {
+            type: Schema.Types.ObjectId,
+            ref: 'Country'
+        },
         profilePicture: String,
         isVerified: {
             type: Boolean,

@@ -1,0 +1,115 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <!--=============================
+        PAGE HEADING START
+    ==============================-->
+    <section>
+        <div class="account_overly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-10 d-flex flex-wrap justify-content-between">
+                        <div class="account_heading_text account_breadcrumbs">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class="bc_black" href="/account">Account</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Personal Info</li>
+                                </ol>
+                            </nav>
+                            <h1>Personal Info</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        PAGE HEADING END
+    ==============================-->
+
+    <!--=============================
+        CONTENT START
+    ==============================-->
+    <section class="account_container">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="row">
+                        <div class="account_content">
+                            <div class="account_options wow fadeInUp" data-wow-duration="1.5s">
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>Name
+                                            <span class="account_option_link" id="name">
+                                                Edit
+                                            </span>
+                                        </h3>
+                                        <p id="name_p"><%= user.firstName + ' ' + user.lastName %></p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" name="firstName" id="firstName" placeholder="First Name" class="<%= validationErrors.find( e => e.path === 'firstName') ? 'invalid' : '' %>" value="<%= oldInput.firstName %>">
+                                                <% if (validationErrors.find( e => e.path === 'firstName')) { %>
+                                                    <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
+                                                <% } %>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="<%= validationErrors.find( e => e.path === 'lastName') ? 'invalid' : '' %>" value="<%= oldInput.lastName %>">
+                                                <% if (validationErrors.find( e => e.path === 'lastName')) { %>
+                                                    <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-7">
+                    <div class="property_sidebar sticky_sidebar wow fadeInUp" data-wow-duration="1.5s">
+                        <div class="sidebar_search sidebar_wizerd">
+                            <h3>search</h3>
+                            <form action="#">
+                                <input type="text" placeholder="Search">
+                                <button type="submit"><i class="far fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="sidebar_dropdown sidebar_wizerd">
+                            <h3>Type</h3>
+                            <select class="select_2" name="state">
+                                <option value="">Select Type</option>
+                                <option value="">Sell</option>
+                                <option value="">Rent</option>
+                                <option value="">Buy</option>
+                            </select>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--=============================
+        CONTENT END
+    ==============================-->
+
+    <%- include('../includes/footer.ejs') %>
+    <script>
+
+        $(".account_option_link").on('click', function(event){
+            showForm(event)
+        });
+
+        async function showForm(event) {
+            alert(event.target.id);
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

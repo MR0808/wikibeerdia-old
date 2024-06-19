@@ -35,12 +35,12 @@ app.use(
         useDefaults: true,
         directives: {
             'default-src': ["'self'"],
-            'script-src': ["'self'", "'unsafe-inline'", "'unsafe-hashes'"],
             'script-src': [
                 "'self'",
                 "'unsafe-inline'",
                 'js.stripe.com',
-                'cdn.jsdelivr.net'
+                'cdn.jsdelivr.net',
+                "'unsafe-hashes'"
             ],
             'style-src': [
                 "'self'",
@@ -64,6 +64,7 @@ import authRoutes from './routes/auth.js';
 import configRoutes from './routes/config.js';
 import locationRoutes from './routes/location.js';
 import breweryRoutes from './routes/brewery.js';
+import accountRoutes from './routes/account.js';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -104,6 +105,7 @@ app.use(authRoutes);
 app.use('/config', configRoutes);
 app.use('/location', locationRoutes);
 app.use('/breweries', breweryRoutes);
+app.use('/account', accountRoutes);
 
 app.get('/500', errorController.get500);
 

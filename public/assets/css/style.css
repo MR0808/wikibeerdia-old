@@ -377,7 +377,7 @@ button {
     text-align: center;
 }
 
-.breadcrumb_text ul li a, .breadcrumb_text ul li {
+.breadcrumb_text ul li a {
     font-size: 16px;
     font-weight: 500;
     font-family: var(--paraFont);
@@ -398,7 +398,7 @@ button {
     opacity: 1;
 }
 
-.breadcrumb_text ul li a::after, .breadcrumb_text ul li:after {
+.breadcrumb_text ul li a::after {
     position: absolute;
     content: "";
     width: 4px;
@@ -7605,4 +7605,125 @@ button {
 .image-list .image-item ul li i {
     font-size: 12px;
     color: var(--colorTan);
+}
+
+.main_menu_black {
+    background: var(--colorBlack);
+}
+
+.account_grid_view .banner_search {
+    margin-top: -100px;
+}
+
+.account_grid_view .listing_bottom ul li {
+    align-items: initial;
+}
+
+.account_overly {
+    padding-top: 140px;
+}
+
+.account_main_overly {
+    padding-bottom: 50px;
+}
+
+.account_heading_text h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 22px;
+    color: var(--colorBlack);
+}
+
+.account_heading_text p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.account_item {
+    transition: all linear .3s;
+    -webkit-transition: all linear .3s;
+    -moz-transition: all linear .3s;
+    -ms-transition: all linear .3s;
+    -o-transition: all linear .3s;
+}
+
+.account_text {
+    position: relative;
+    padding: 22px 30px 18px 30px;
+    background: var(--colorWhite);
+    filter: drop-shadow(0px 2px 5px rgba(3, 26, 38, 0.10));
+    border-radius: 12px;
+    min-height: 160px;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.account_text i {
+    font-size: 26px;
+    color: var(--colorBlack);
+    margin-bottom: 16px;
+}
+
+.account_text h3 {
+    font-size: 16px;
+}
+
+.bc_black {
+    color: var(--colorBlack)
+}
+
+.account_breadcrumbs .breadcrumb-item.active {
+    color: var(--paraColor);
+}
+
+.account_options {
+    padding-bottom: 20px;
+    padding-top: 0;
+}
+
+.account_option_item {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 0px 30px 0px;
+    border-bottom: 1px solid rgba(3, 26, 38, 0.10);
+}
+
+.account_option_item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.account_option_item_text {
+    width: 90%;
+}
+
+.account_option_item_text h3 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account_option_item_text h3 a {
+    color: var(--colorBlack);
+}
+
+.account_option_item_text h3 span {
+    color: var(--colorBlack);
+    font-size: 16px
+}
+
+.account_option_item_text h3 span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.account_option_item_text p {
+    margin-top: 20px;
+    font-size: 16px;
 }

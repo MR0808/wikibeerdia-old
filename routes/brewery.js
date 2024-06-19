@@ -21,4 +21,5 @@ router.post(
 );
 
 router.get('/brewery/:breweryId', isAuth, breweryController.getBrewery);
+
 export default router;

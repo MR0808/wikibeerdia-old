@@ -1,9 +1,9 @@
 <!--=============================
         MAIN MENU START
     ==============================-->
-    <nav class="navbar navbar-expand-lg main_menu">
+    <nav class="navbar navbar-expand-lg main_menu <% if (typeof blackHeading !== 'undefined') { %>main_menu_black<% } %>">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
                 <img src="/assets/images/logo.png" alt="Directory & Listings Template" class="img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -14,12 +14,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home <i class="far fa-angle-down"></i></a>
-                        <ul class="droap_menu">
-                            <li><a class="active" href="index.html">home style 01</a></li>
-                            <li><a href="index_2.html">home style 02</a></li>
-                            <li><a href="index_3.html">home style 03</a></li>
-                        </ul>
+                        <a class="nav-link <% if (path === '/index') { %>active<% } %>" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about_us.html">About</a>
@@ -61,7 +56,7 @@
                 <ul class="menu_right d-flex align-items-center">
                     <li class="white">
                         <% if (isAuthenticated) { %>
-                        <a class="user_login" href="dashboard.html">
+                        <a class="user_login" href="/account">
                             <span> <img src="/assets/images/login_icon.png" alt="user" class="img-fluid w-100">
                             </span>
                             Account

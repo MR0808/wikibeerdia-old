@@ -1,0 +1,120 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <!--=============================
+        PAGE HEADING START
+    ==============================-->
+    <section>
+        <div class="account_overly account_main_overly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-10 d-flex flex-wrap justify-content-between">
+                        <div class="account_heading_text">
+                            <h1>Account</h1>
+                            <p><%= user.firstName + ' ' + user.lastName %> - <a href="/account/profile">View profile</a></p>
+                        </div>
+                        <div>
+                            <form action="/logout" method="post">
+                                <!-- <input type="hidden" name="CSRFToken" value="<%= true %>"> -->
+                                <button class="common_btn" type="submit">Logout <i class="far fa-sign-out"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        PAGE HEADING END
+    ==============================-->
+
+
+    <!--=============================
+        LISTING GRID VIEW START
+    ==============================-->
+    <section class="account_grid_view pb_120 xs_pb_100">
+        <div class="container">
+            <div class="col-lg-10 col-md-10">
+                <div class="row xs_mt_75">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
+                        <a href="/account/personal-info">
+                            <div class="account_item">
+                                <div class="account_text">
+                                    <i class="far fa-address-card"></i>
+                                    <h3>Personal Info</h3>
+                                    <p>Manage your personal information so we can best serve you</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        LISTING GRID VIEW END
+    ==============================-->
+
+    <%- include('../includes/footer.ejs') %>
+
+
+</body>
+
+</html>
