@@ -7,10 +7,11 @@ import State from '../models/state.js';
 export const personalInfo = [
     body('firstName').exists({ checkFalsy: true }),
     body('lastName').exists({ checkFalsy: true }),
-    body('gender').exists({ checkFalsy: true }),
     body('dateOfBirth')
-        .isDate({ format: 'Y-m-d' })
+        .optional({ checkFalsy: true })
+        .isDate({ format: 'YYYY-MM-DD' })
         .custom((value) => {
+            console.log(value);
             const dob = new Date(value);
             const year = dob.getFullYear();
             const today = new Date();
@@ -21,17 +22,17 @@ export const personalInfo = [
                 return true;
             }
         }),
-    body('country').exists({ checkFalsy: true }),
-    body('state').custom(async (value, { req }) => {
-        console.log(req.body.country);
-        const states = await State.countDocuments({
-            country: req.body.country
-        });
-        if (states > 0) {
-            if (!value) {
-                throw new Error('No state selected');
+    body('state')
+        .if(body('country').notEmpty())
+        .custom(async (value, { req }) => {
+            const states = await State.countDocuments({
+                country: req.body.country
+            });
+            if (states > 0) {
+                if (!value) {
+                    throw new Error('No state selected');
+                }
             }
-        }
-        return true;
-    })
+            return true;
+        })
 ];

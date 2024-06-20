@@ -7752,3 +7752,22 @@ button {
 .account_option_item_text button {
     margin-top: 30px;
 }
+
+.select2-selection__clear {
+    background-color: #afafaf !important;
+    position: relative !important;
+    float: right !important;
+    width: .9em !important;
+    height: .9em !important;
+    padding-left: .1em !important;
+    margin-top: .7em !important;
+    margin-right: 2em !important;
+    line-height: .75em !important;
+    color: #f8f9fa !important;
+    border-radius: 100% !important;
+    font-size: 1.5em !important;
+}
+
+.select2-selection__clear span {
+    font-size: 19px;
+}

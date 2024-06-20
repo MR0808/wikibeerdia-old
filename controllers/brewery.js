@@ -81,7 +81,7 @@ export async function postAddBrewery(req, res, next) {
         }
     }
     errorsOld = validationResult(req);
-    if (!errorsOld.isEmpty()) {
+    if (!errorsOld.isEmpty() || logoError) {
         let errors = errorsOld.array();
         if (logoError) {
             errors.push({

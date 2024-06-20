@@ -7,8 +7,10 @@ const imageFilter = (req, file, cb) => {
         file.mimetype === 'image/jpg' ||
         file.mimetype === 'image/jpeg'
     ) {
+        req.isFileValid = true;
         cb(null, true);
     } else {
+        req.isFileValid = false;
         cb(null, false);
     }
 };

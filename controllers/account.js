@@ -1,11 +1,14 @@
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
 import { MailService } from '@sendgrid/mail';
+import mongoose from 'mongoose';
+import multer from 'multer';
 
 import User from '../models/user.js';
 import Token from '../models/token.js';
 import Country from '../models/country.js';
 import State from '../models/state.js';
+import deleteFile from '../util/file.js';
 
 export async function getAccount(req, res, next) {
     res.render('account/account-main', {
@@ -18,25 +21,26 @@ export async function getAccount(req, res, next) {
 
 export async function getPersonalInfo(req, res, next) {
     try {
+        const user = req.session.user;
         const countries = await Country.find().sort('name').select('name');
-        const defaultCountry = await Country.findOne({ name: 'Australia' });
-        const states = await State.find({ country: defaultCountry._id })
-            .sort('name')
-            .select('name');
+        let states = '';
+        if (!user.country) {
+            user.country = '';
+        } else {
+            states = await State.find({ country: user.country })
+                .sort('name')
+                .select('name');
+        }
         res.render('account/personal-info', {
             pageTitle: 'Personal Info',
             path: '/account/personal-info',
             blackHeading: true,
-            user: req.session.user,
+            user: user,
             validationErrors: [],
             editing: false,
             hasError: false,
             countries: countries,
-            states: states,
-            user: {
-                country: defaultCountry._id.toString(),
-                profilePicture: ''
-            }
+            states: states
         });
     } catch (err) {
         console.log(err);
@@ -51,48 +55,35 @@ export async function postPersonalInfo(req, res, next) {
     let errorsOld = [];
     let profileUrl = '';
     const profilePicture = req.files.profilePicture;
-    let profileError = false;
-    if (!logo) {
-        logoError = true;
+    if (!profilePicture) {
+        profileUrl = '';
     } else {
-        logoUrl = logo[0].path.replaceAll('\\', '/');
-    }
-    if (breweryImages) {
-        for (let image of breweryImages) {
-            breweryImagesUrl.push({
-                imageUrl: image.path.replaceAll('\\', '/')
-            });
-        }
+        profileUrl = profilePicture[0].path.replaceAll('\\', '/');
     }
     errorsOld = validationResult(req);
-    if (!errorsOld.isEmpty()) {
+    if (!errorsOld.isEmpty() || profileError) {
         let errors = errorsOld.array();
-        if (logoError) {
-            errors.push({
-                type: 'field',
-                value: '',
-                msg: 'Please add a valid logo (JPG or PNG)',
-                path: 'logo',
-                location: 'body'
-            });
-        }
         try {
-            const types = await BreweryType.find().sort('name');
-            if (logo) {
-                deleteFile(logoUrl);
+            if (profilePicture) {
+                deleteFile(profileUrl);
             }
-            if (breweryImages) {
-                for (let image of breweryImages) {
-                    deleteFile(image.path);
-                }
+            const countries = await Country.find().sort('name').select('name');
+            let states = '';
+            if (userForm.country) {
+                states = await State.find({ country: userForm.country })
+                    .sort('name')
+                    .select('name');
             }
-            return res.status(422).render('breweries/brewery-edit', {
-                pageTitle: 'Add Brewery',
-                path: '/breweries/add-brewery',
+            return res.status(422).render('account/personal-info', {
+                pageTitle: 'Personal Info',
+                path: '/account/personal-info',
+                blackHeading: true,
+                user: userForm,
+                validationErrors: [],
                 editing: false,
-                hasError: true,
-                types: types,
-                brewery: breweryForm,
+                hasError: false,
+                countries: countries,
+                states: states,
                 validationErrors: errors
             });
         } catch (err) {
@@ -101,18 +92,23 @@ export async function postPersonalInfo(req, res, next) {
             return next(error);
         }
     }
-    const brewery = new Brewery({
-        name: breweryForm.name,
-        city: breweryForm.city,
-        description: breweryForm.description,
-        website: breweryForm.website,
-        logoUrl: logoUrl,
-        images: breweryImagesUrl,
-        type: mongoose.Types.ObjectId.createFromHexString(breweryForm.type),
-        user: req.session.user
-    });
     try {
-        const newBrewery = await brewery.save();
+        const user = await User.findById(req.session.user);
+        if (profilePicture) {
+            deleteFile(user.profilePicture);
+            product.imageUrl = profileUrl;
+        }
+        user.firstName = userForm.firstName;
+        user.lastName = userForm.lastName;
+        user.gender = userForm.gender;
+        user.dateOfBirth = userForm.dateOfBirth;
+        user.country = mongoose.Types.ObjectId.createFromHexString(
+            userForm.country
+        );
+        user.state = mongoose.Types.ObjectId.createFromHexString(
+            userForm.state
+        );
+        await user.save();
         res.redirect('/');
     } catch (err) {
         console.log(err);
