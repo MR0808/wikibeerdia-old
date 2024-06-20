@@ -1,7 +1,3 @@
-// document.getElementById('logo').addEventListener('change', function (event) {
-//     changeImage(event);
-// });
-
 const logoInput = $('#logo');
 
 logoInput.change(function (e) {

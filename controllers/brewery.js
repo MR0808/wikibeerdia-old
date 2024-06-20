@@ -68,7 +68,6 @@ export async function postAddBrewery(req, res, next) {
     const logo = req.files.logo;
     const breweryImages = req.files.breweryImages;
     let logoError = false;
-    console.log(req.files);
     if (!logo) {
         logoError = true;
     } else {

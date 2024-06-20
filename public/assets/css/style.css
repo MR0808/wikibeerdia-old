@@ -7690,13 +7690,17 @@ button {
     border-bottom: 1px solid rgba(3, 26, 38, 0.10);
 }
 
+.account_option_item:first-child {
+    padding-top: 0px;
+}
+
 .account_option_item:last-child {
     border-bottom: none;
     padding-bottom: 0;
 }
 
 .account_option_item_text {
-    width: 90%;
+    width: 100%;
 }
 
 .account_option_item_text h3 {
@@ -7705,7 +7709,6 @@ button {
     text-transform: capitalize;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -7726,4 +7729,26 @@ button {
 .account_option_item_text p {
     margin-top: 20px;
     font-size: 16px;
+}
+
+.account_form {
+    margin-top: 20px;
+}
+
+.account_form input {
+    border: 1px solid rgba(3, 26, 38, 0.10);
+    border-radius: 12px;
+}
+
+.flex-toggle {
+    display: none
+}
+
+.required::after {
+    content:"\00a0 *";
+    color: var(--colorRed);
+}
+
+.account_option_item_text button {
+    margin-top: 30px;
 }

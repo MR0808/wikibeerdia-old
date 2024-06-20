@@ -3,6 +3,8 @@ import { validationResult } from 'express-validator';
 import * as style from './style.js';
 import BreweryType from '../models/breweryType.js';
 import titleCase from '../util/titlecase.js';
+import Country from '../models/country.js';
+import State from '../models/state.js';
 
 export async function postBreweryType(req, res, next) {
     const breweryType = req.body.breweryType;
@@ -58,4 +60,9 @@ export async function getStyleDescendants(req, res, next) {
     const categoryId = req.body.categoryId;
     const styles = await style.getStyleDescendants(categoryId);
     return res.send(styles);
+}
+
+export async function getStates(req, res, next) {
+    const states = await State.find({ country: req.query.country });
+    return res.status(200).json({ data: states });
 }
