@@ -7710,6 +7710,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
 }
 
 .account_option_item_text h3 a {
@@ -7749,10 +7750,6 @@ button {
     color: var(--colorRed);
 }
 
-.account_option_item_text button {
-    margin-top: 30px;
-}
-
 .select2-selection__clear {
     background-color: #afafaf !important;
     position: relative !important;
@@ -7770,4 +7767,52 @@ button {
 
 .select2-selection__clear span {
     font-size: 19px;
+}
+
+.account_form button {
+    width: 20%;
+}
+
+.loading {
+    font-size:0;
+    width:30px !important;
+    height:30px;
+    margin-top:5px;
+    border-radius:15px;
+    padding:0;
+    border:3px solid var(--colorBlack);
+    border-bottom:3px solid rgba(255,255,255,0.0);
+    border-left:3px solid rgba(255,255,255,0.0);
+    background-color:transparent !important;
+    animation-name: rotateAnimation;
+    -webkit-animation-name: wk-rotateAnimation;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-delay: 0.2s;
+    -webkit-animation-delay: 0.2s;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes rotateAnimation {
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes wk-rotateAnimation {
+    0%   {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+.finish{
+    -webkit-transform:scaleX(1) !important;
+    transform:scaleX(1) !important;
+}
+
+.hide-loading{
+    opacity:0;
+    -webkit-transform: rotate(0deg) !important;
+    transform: rotate(0deg) !important;
+    -webkit-transform:scale(0) !important;
+    transform:scale(0) !important;
 }

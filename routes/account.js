@@ -13,12 +13,10 @@ router.get('/', isAuth, accountController.getAccount);
 router.get('/personal-info', isAuth, accountController.getPersonalInfo);
 
 router.post(
-    '/personal-info',
+    '/personal-info/name',
     isAuth,
-    userUploadHandler.fields([{ name: 'profilePicture', maxCount: 1 }]),
-    ...validators.personalInfo,
-    ...sanitizers.email,
-    accountController.postPersonalInfo
+    ...validators.personalInfoName,
+    accountController.postPersonalInfoName
 );
 
 export default router;
