@@ -35,4 +35,11 @@ router.post(
     accountController.postPersonalInfoLocation
 );
 
+router.post(
+    '/personal-info/dob',
+    isAuth,
+    ...validators.personalInfoDob,
+    accountController.postPersonalInfoDob
+);
+
 export default router;

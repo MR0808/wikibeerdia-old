@@ -15,6 +15,6 @@ router.post('/style', ...validators.style, configController.postAddStyle);
 
 router.get('/style', configController.getStyleDescendants);
 
-router.get('/getStates', configController.getStates);
+router.post('/getStates', configController.getStates);
 
 export default router;

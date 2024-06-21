@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator';
 import { MailService } from '@sendgrid/mail';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import { DateTime } from 'luxon';
 
 import User from '../models/user.js';
 import Token from '../models/token.js';
@@ -21,7 +22,9 @@ export async function getAccount(req, res, next) {
 
 export async function getPersonalInfo(req, res, next) {
     try {
-        const user = await User.findById(req.session.user);
+        const user = await User.findById(req.session.user)
+            .populate({ path: 'country', select: 'name' })
+            .populate({ path: 'state', select: 'name' });
         const countries = await Country.find().sort('name').select('name');
         let states = '';
         if (!user.country) {
@@ -31,6 +34,7 @@ export async function getPersonalInfo(req, res, next) {
                 .sort('name')
                 .select('name');
         }
+        const dob = DateTime.fromJSDate(user.dateOfBirth);
         res.render('account/personal-info', {
             pageTitle: 'Personal Info',
             path: '/account/personal-info',
@@ -40,7 +44,9 @@ export async function getPersonalInfo(req, res, next) {
             editing: false,
             hasError: false,
             countries: countries,
-            states: states
+            states: states,
+            dob: dob.toLocaleString(DateTime.DATE_FULL),
+            dobFormat: dob.toFormat('yyyy-LL-dd')
         });
     } catch (err) {
         console.log(err);
@@ -113,6 +119,29 @@ export async function postPersonalInfoLocation(req, res, next) {
                 req.body.state
             );
         }
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postPersonalInfoDob(req, res, next) {
+    let errors = [];
+    let data;
+    let dob = new Date(req.body.dateOfBirth);
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        user.dateOfBirth = dob;
         req.session.user = await user.save();
         data = { result: 'success' };
         return res.status(200).json({ data: data });

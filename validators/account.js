@@ -27,3 +27,20 @@ export const personalInfoLocation = [
             return true;
         })
 ];
+
+export const personalInfoDob = [
+    body('dateOfBirth')
+        .exists({ checkFalsy: true })
+        .isDate({ format: 'YYYY-MM-DD' })
+        .custom((value) => {
+            const dob = new Date(value);
+            const year = dob.getFullYear();
+            const today = new Date();
+            const age = today.getFullYear() - year;
+            if (age < 18) {
+                throw new Error('User is under 18');
+            } else {
+                return true;
+            }
+        })
+];

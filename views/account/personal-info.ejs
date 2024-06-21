@@ -127,10 +127,10 @@
                                             if (!user.country) {
                                                 locationLabel = 'Not specified'
                                             } else {
-                                                genderLabel = user.state.name + ', ' + user.country.name
+                                                locationLabel = user.state.name + ', ' + user.country.name
                                             }
                                             %>
-                                            <p <% if (locationLabel === 'Not specified') { %>class="italic"<% } %> id="p_genderForm"><%=locationLabel %></p>
+                                            <p <% if (locationLabel === 'Not specified') { %>class="italic"<% } %> id="p_location"><%=locationLabel %></p>
                                         </div>
                                         <div class="row account_form hidden form_location">
                                             <div class="col">
@@ -159,6 +159,34 @@
                                                 <div class="col animated_button">
                                                     <button class="common_btn" id="submit_location" type="submit">Update</button>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>
+                                            Date of Birth (must be over 18)
+                                            <span class="edit_link" id="dob">Edit</span>
+                                        </h3>
+                                        <div class="label_dob">
+                                            <% 
+                                            let dobLabel;
+                                            if (!dob) {
+                                                dobLabel = 'Not specified'
+                                            } else {
+                                                dobLabel = dob
+                                            }
+                                            %>
+                                            <p <% if (dobLabel === 'Not specified') { %>class="italic"<% } %> id="p_dob"><%=dobLabel %></p>
+                                        </div>
+                                        <div class="account_form hidden form_dob">
+                                            <input type="text" id="dateOfBirth" name="dateOfBirth" value="<%= dobFormat %>">
+                                            <p class="hidden form_error_text dob_error"><i class="fas fa-exclamation-triangle"></i> Please select a valid date of birth</p>
+                                        </div>
+                                        <div class="row account_form hidden button_dob">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="submit_dob" type="submit">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -202,8 +230,9 @@
 
     <script>
         let genderOld = "<%= user.gender %>";
-        let countryOld = "<%= user.country %>";
-        let stateOld = "<%= user.state %>";
+        let countryOld = "<%= user.country._id %>";
+        let stateOld = "<%= user.state._id %>";
+        let dobOld = "<%= dobFormat %>";
 
         // const profileInput = $('#profilePicture');
 
@@ -230,64 +259,7 @@
 
         
 
-        // $('#country').select2({
-        //     placeholder: "Select a country",
-        //     minimumResultsForSearch: 10,
-        //     allowClear: true
-        // });
-
-        // console.log($('#country').val())
-
-        // $('#state').select2({
-        //     placeholder: "Select a state",
-        //     minimumResultsForSearch: 10,
-        //     allowClear: true
-        // });
-
-        // let maxDate = new Date(); 
-        // maxDate.setFullYear(maxDate.getFullYear() - 18);
-
-        // $("#dateOfBirth").flatpickr({
-        //     altInput: true,
-        //     altFormat: 'J F, Y',
-        //     dateFormat: 'Y-m-d',
-        //     maxDate: maxDate
-        // });
-
-        // $("#country").on( "change", function(event) {
-        //     if(this.value) {
-        //         getStates(this.value);
-        //     } else {
-        //         clearStates();
-        //     }
-        // });
-
-        // function clearStates(countryId) {
-        //     let html = '<option></option>';
-        //     document.getElementById('state').innerHTML = html;
-        //     $('#state').val(null).trigger('change');
-        // }
-
-        // async function getStates(countryId) {
-        //     let jsonStates;
-        //     try {
-        //         const returnedStates = await fetch(
-        //             '/config/getStates?country=' + countryId
-        //         );
-        //         jsonStates = await returnedStates.json();
-        //         states = jsonStates.data;
-        //     } catch (e) {
-        //         alert(e);
-        //         throw new Error(e);
-        //     }
-
-        //     let html = '<option></option>';
-        //     for (let state of states) {
-        //         html += '<option value="' + state._id + '">' + state.name + '</option>';
-        //     }
-
-        //     document.getElementById('state').innerHTML = html;
-        // }
+        
 
     </script>
 

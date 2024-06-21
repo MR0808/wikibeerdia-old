@@ -63,6 +63,6 @@ export async function getStyleDescendants(req, res, next) {
 }
 
 export async function getStates(req, res, next) {
-    const states = await State.find({ country: req.query.country });
+    const states = await State.find({ country: req.body.country });
     return res.status(200).json({ data: states });
 }
