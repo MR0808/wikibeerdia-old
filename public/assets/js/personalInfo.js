@@ -29,6 +29,21 @@ $(document).on('click', '#submit_name', function () {
     submitName();
 });
 
+$(document).on('click', '#name', function () {
+    if ($('#name').text() === 'Cancel') {
+        if (firstNameOld) {
+            $('#firstName').val(firstNameOld);
+        } else {
+            $('#firstName').val(null);
+        }
+        if (lastNameOld) {
+            $('#lastName').val(lastNameOld);
+        } else {
+            $('#lastName').val(null);
+        }
+    }
+});
+
 async function submitName() {
     let jsonData;
     const formData = {
