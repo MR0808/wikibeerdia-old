@@ -10,7 +10,7 @@
         <div class="account_overly">
             <div class="container">
                 <div class="row">
-                    <div class="col-10 d-flex flex-wrap justify-content-between">
+                    <div class="col-4 d-flex flex-wrap justify-content-between">
                         <div class="account_heading_text account_breadcrumbs">
                             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -18,9 +18,14 @@
                                     <li class="breadcrumb-item active" aria-current="page">Personal Info</li>
                                 </ol>
                             </nav>
-                            <h1>Personal Info</h1>
+                            <h1>Personal Info</h1>                           
                             <input type="hidden" name="user" id="user" value="<%= user._id %>">
                         </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="alert alert-success collapse" id="formNotification" role="alert">
+                            Name successfully updated
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -52,16 +57,108 @@
                                         <div class="row account_form hidden form_name">
                                             <div class="col">
                                                 <input type="text" name="firstName" id="firstName" placeholder="First Name" value="<%= user.firstName %>">
-                                                    <p class="hidden error_text firstName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
+                                                <p class="hidden form_error_text firstName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
                                             </div>
                                             <div class="col">
                                                 <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="<%= user.lastName %>">
-                                                    <p class="hidden error_text lastName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
+                                                <p class="hidden form_error_text lastName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
                                             </div>
                                         </div>
                                         <div class="row account_form hidden button_name">
-                                            <div class="col">
+                                            <div class="col animated_button">
                                                 <button class="common_btn" id="submit_name" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>
+                                            Gender
+                                            <span class="edit_link" id="genderForm">Edit</span>
+                                        </h3>
+                                        <div class="label_genderForm">
+                                            <% 
+                                            let genderLabel;
+                                            if (!user.gender) {
+                                                genderLabel = 'Not specified'
+                                            } else if (user.gender === 'NotSay') {
+                                                genderLabel = 'Rather not say'
+                                            } else {
+                                                genderLabel = user.gender
+                                            }
+                                            %>
+                                            <p <% if (genderLabel === 'Not specified') { %>class="italic"<% } %> id="p_genderForm"><%=genderLabel %></p>
+                                        </div>
+                                        <div class="account_form hidden form_genderForm">
+                                            <select class="select_2" name="gender" id="gender">
+                                                <option></option>
+                                                    <option value="Male" <% if ((user.gender) && user.gender === 'Male') { %>
+                                                        selected
+                                                    <% } %>>Male</option>
+                                                    <option value="Female" <% if ((user.gender) && user.gender === 'Female') { %>
+                                                        selected
+                                                    <% } %>>Female</option>
+                                                    <option value="Other" <% if ((user.gender) && user.gender === 'Other') { %>
+                                                        selected
+                                                    <% } %>>Other</option>
+                                                    <option value="NotSay" <% if ((user.gender) && user.gender === 'NotSay') { %>
+                                                        selected
+                                                    <% } %>>Rather not say</option>
+                                            </select>
+                                            <p class="hidden form_error_text gender_error"><i class="fas fa-exclamation-triangle"></i> Please select a gender</p>
+                                        </div>
+                                        <div class="row account_form hidden button_genderForm">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="submit_gender" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>
+                                            Location
+                                            <span class="edit_link" id="location">Edit</span>
+                                        </h3>
+                                        <div class="label_location">
+                                            <% 
+                                            let locationLabel;
+                                            if (!user.country) {
+                                                locationLabel = 'Not specified'
+                                            } else {
+                                                genderLabel = user.state.name + ', ' + user.country.name
+                                            }
+                                            %>
+                                            <p <% if (locationLabel === 'Not specified') { %>class="italic"<% } %> id="p_genderForm"><%=locationLabel %></p>
+                                        </div>
+                                        <div class="row account_form hidden form_location">
+                                            <div class="col">
+                                                <select class="select_2" name="country" id="country">
+                                                    <option></option>
+                                                    <% for (let country of countries) { %>
+                                                        <option value="<%= country._id %>" <% if (country._id.toString() === user.country) { %>
+                                                            selected 
+                                                            <% } %>><%= country.name %></option>
+                                                    <% } %>
+                                                </select>
+                                                <p class="hidden form_error_text country_error"><i class="fas fa-exclamation-triangle"></i> Please select a country</p>
+                                            </div>
+                                            <div class="col">
+                                                <select class="select_2" name="state" id="state">
+                                                    <option></option>
+                                                    <% for (let state of states) { %>
+                                                        <option value="<%= state._id %>" <% if ((state) && state._id.toString() === user.state) { %>
+                                                            selected
+                                                        <% } %>><%= state.name %> </option>
+                                                    <% } %>
+                                                </select>
+                                                <p class="hidden form_error_text state_error"><i class="fas fa-exclamation-triangle"></i> Please select a state</p>
+                                            </div>
+                                            <div class="row account_form hidden button_location">
+                                                <div class="col animated_button">
+                                                    <button class="common_btn" id="submit_location" type="submit">Update</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,7 +201,9 @@
     
 
     <script>
-
+        let genderOld = "<%= user.gender %>";
+        let countryOld = "<%= user.country %>";
+        let stateOld = "<%= user.state %>";
 
         // const profileInput = $('#profilePicture');
 
@@ -129,11 +228,7 @@
         //     profileInput.val('');
         // });
 
-        // $('#gender').select2({
-        //     placeholder: "Select a gender",
-        //     minimumResultsForSearch: 10,
-        //     allowClear: true
-        // });
+        
 
         // $('#country').select2({
         //     placeholder: "Select a country",

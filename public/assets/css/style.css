@@ -7780,12 +7780,12 @@ button {
     margin-top:5px;
     border-radius:15px;
     padding:0;
-    border:3px solid var(--colorBlack);
+    border:3px solid var(--colorTan);
     border-bottom:3px solid rgba(255,255,255,0.0);
     border-left:3px solid rgba(255,255,255,0.0);
     background-color:transparent !important;
     animation-name: rotateAnimation;
-    -webkit-animation-name: wk-rotateAnimation;
+    -webkit-animation-name: rotateAnimation;
     animation-duration: 1s;
     -webkit-animation-duration: 1s;
     animation-delay: 0.2s;
@@ -7799,20 +7799,19 @@ button {
     100% {transform: rotate(360deg);}
 }
 
-@-webkit-keyframes wk-rotateAnimation {
+@-webkit-keyframes rotateAnimation {
     0%   {-webkit-transform: rotate(0deg);}
     100% {-webkit-transform: rotate(360deg);}
 }
 
-.finish{
-    -webkit-transform:scaleX(1) !important;
-    transform:scaleX(1) !important;
-}
-
-.hide-loading{
+.hide-loading {
     opacity:0;
     -webkit-transform: rotate(0deg) !important;
     transform: rotate(0deg) !important;
     -webkit-transform:scale(0) !important;
     transform:scale(0) !important;
+}
+
+.italic {
+    font-style: italic;
 }

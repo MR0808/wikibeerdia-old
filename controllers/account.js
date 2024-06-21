@@ -21,7 +21,7 @@ export async function getAccount(req, res, next) {
 
 export async function getPersonalInfo(req, res, next) {
     try {
-        const user = req.session.user;
+        const user = await User.findById(req.session.user);
         const countries = await Country.find().sort('name').select('name');
         let states = '';
         if (!user.country) {
@@ -58,6 +58,68 @@ export async function postPersonalInfoName(req, res, next) {
         data = { result: 'error', errors: errors.array() };
         return res.status(200).json({ data: data });
     }
-    data = { result: 'success' };
-    return res.status(200).json({ data: data });
+    try {
+        const user = await User.findById(req.session.user);
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postPersonalInfoGender(req, res, next) {
+    let errors = [];
+    let data;
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        user.gender = req.body.gender;
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postPersonalInfoLocation(req, res, next) {
+    let errors = [];
+    let data;
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        user.country = mongoose.Types.ObjectId.createFromHexString(
+            req.body.country
+        );
+        if (req.body.state) {
+            user.state = mongoose.Types.ObjectId.createFromHexString(
+                req.body.state
+            );
+        }
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
 }

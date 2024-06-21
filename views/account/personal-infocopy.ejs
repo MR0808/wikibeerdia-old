@@ -103,7 +103,7 @@
                                                             selected
                                                         <% } %>>Rather not say</option>
                                                 </select>
-                                                <% if (validationErrors.find( e => e.path === 'gender')) { %>
+                                                <% if (validationErrors.find( e => e.path === 'gender') || true) { %>
                                                     <p class="form_error_text"><i class="fas fa-exclamation-triangle"></i> Please select a gender</p>
                                                 <% } %>
                                             </div>
