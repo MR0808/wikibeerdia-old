@@ -152,3 +152,31 @@ export async function postPersonalInfoDob(req, res, next) {
         return next(error);
     }
 }
+
+export async function postPersonalInfoProfile(req, res, next) {
+    let data;
+    let profileUrl = '';
+    const profile = req.files.profilePicture;
+    let profileError = false;
+    if (!profile) {
+        profileError = true;
+    } else {
+        profileUrl = profile[0].path.replaceAll('\\', '/');
+    }
+    if (profileError) {
+        data = { result: 'error' };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        user.profilePicture = profileUrl;
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}

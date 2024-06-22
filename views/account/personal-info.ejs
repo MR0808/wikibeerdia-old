@@ -196,13 +196,28 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-7">
-                    <div class="property_sidebar sticky_sidebar wow fadeInUp" data-wow-duration="1.5s">
-                        <div class="sidebar_search sidebar_wizerd">
-                            <h3>search</h3>
-                            <form action="#">
-                                <input type="text" placeholder="Search">
-                                <button type="submit"><i class="far fa-search"></i></button>
-                            </form>
+                    <div class="account_sidebar sticky_sidebar wow fadeInUp" data-wow-duration="1.5s">
+                        <div class="account_sidebar_profile">
+                            <h3>Profile Picture</h3>
+                            <div class="img">
+                                <% 
+                                let profile
+                                if (!user.profilePicture) {
+                                    profile = '/assets/images/profile.jpg';
+                                } else {
+                                    profile = '/' + user.profilePicture;
+                                } %>
+                                <img src="<%=profile %>" alt="dashboard" class="img-fluid w-100" id="profilePicHolder">
+                                <label for="profilePicture"><i class="far fa-camera"></i></label>
+                                <input type="file" id="profilePicture" name="profilePicture" hidden>
+                                
+                            </div>
+                            <div class="row button_profile">
+                                <div class="col animated_button">
+                                    <button class="common_btn" id="submit_profile" type="submit">Save</button>
+                                    <p class="hidden form_error_text_profile profile_error"><i class="fas fa-exclamation-triangle"></i> Please upload a valid logo (JPG or PNG)</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="sidebar_dropdown sidebar_wizerd">
                             <h3>Type</h3>
@@ -235,33 +250,7 @@
         let countryOld = "<%= user.country._id %>";
         let stateOld = "<%= user.state._id %>";
         let dobOld = "<%= dobFormat %>";
-
-        // const profileInput = $('#profilePicture');
-
-        // profileInput.change(function (e) {
-        //     file = this.files[0];
-        //     if (file) {
-        //         let validExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
-        //         let fileType = file.type;
-        //         if (validExtensions.includes(fileType)) {
-        //             let reader = new FileReader();
-        //             reader.onload = function (event) {
-        //                 $('#profilePreview').attr('src', event.target.result);
-        //             };
-        //             reader.readAsDataURL(file);
-        //             $('.hidden').show();
-        //         }
-        //     }
-        // });
-
-        // $(document).on('click', '.profile-delete', function () {
-        //     $('.hidden').hide();
-        //     profileInput.val('');
-        // });
-
-        
-
-        
+        let profileOld = "<%= user.profilePicture %>";     
 
     </script>
 

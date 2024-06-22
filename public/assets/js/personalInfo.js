@@ -380,3 +380,64 @@ async function submitDob() {
         throw new Error(e);
     }
 }
+
+// profile picture Edit functions
+
+const profileInput = $('#profilePicture');
+
+profileInput.change(function (e) {
+    file = this.files[0];
+    if (file) {
+        let validExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
+        let fileType = file.type;
+        if (validExtensions.includes(fileType)) {
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                $('#profilePicHolder').attr('src', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+});
+
+$(document).on('click', '.profile-delete', function () {
+    $('.hidden').hide();
+    profileInput.val('');
+});
+
+$(document).on('click', '#submit_profile', function () {
+    $('#submit_profile').addClass('loading');
+    submitProfile();
+});
+
+async function submitProfile() {
+    let jsonData;
+    const input = document.getElementById('profilePicture');
+    const formData = new FormData();
+    formData.append('profilePicture', input.files[0]);
+    try {
+        const returnedData = await fetch('/account/personal-info/profile', {
+            method: 'POST',
+            body: formData
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        if (data.result === 'error') {
+            $('#profilePicHolder').addClass('invalid');
+            $('.profile_error').show();
+            $('#submit_profile').removeClass('loading');
+        } else {
+            $('#profilePicHolder').removeClass('invalid');
+            $('.profile_error').hide();
+            $('#submit_profile').removeClass('loading');
+            $('#formNotification').text('Profile picture successfully updated');
+            $('#formNotification').fadeIn();
+            setTimeout(function () {
+                $('#formNotification').fadeOut();
+            }, 2000);
+        }
+    } catch (e) {
+        alert(e);
+        throw new Error(e);
+    }
+}

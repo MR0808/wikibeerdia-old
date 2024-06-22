@@ -42,4 +42,11 @@ router.post(
     accountController.postPersonalInfoDob
 );
 
+router.post(
+    '/personal-info/profile',
+    isAuth,
+    userUploadHandler.fields([{ name: 'profilePicture', maxCount: 1 }]),
+    accountController.postPersonalInfoProfile
+);
+
 export default router;

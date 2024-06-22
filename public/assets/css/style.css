@@ -98,8 +98,12 @@ textarea {
     background: var(--colorWhite);
 }
 
-input.invalid, textarea.invalid {
+input.invalid, textarea.invalid, img.invalid {
     border-color: var(--colorRed) !important;
+}
+
+img.invalid {
+    border: 3px solid;
 }
 
 input::placeholder,
@@ -7413,6 +7417,13 @@ button {
     text-align: left !important;
 }
 
+.form_error_text_profile {
+    margin-bottom: 5px !important;
+    color: #ae4e38 !important;
+    text-align: center !important;
+    margin-top: 10px;
+}
+
 .login_error {
     position: relative;
     padding: 25px 0px;
@@ -7814,4 +7825,81 @@ button {
 
 .italic {
     font-style: italic;
+}
+
+.account_sidebar {
+    border: 1px solid rgba(3, 26, 38, 0.10);
+    overflow: hidden;
+}
+
+.button_profile {
+    margin-top: 20px;
+}
+
+.account_sidebar_profile {
+    padding: 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid #ffffff2b;
+    border-top: 1px solid #ffffff2b;
+}
+
+.account_sidebar_profile h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--colorBlack);
+}
+
+.account_sidebar_profile .img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--colorWhite);
+    margin: 0 auto;
+    position: relative;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.account_sidebar_profile .img img {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.account_sidebar_profile .img label {
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    font-size: 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(88, 92, 84, 0.50);
+    background: var(--colorWhite);
+    transition: all linear .3s;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: var(--colorBlack);
+    cursor: pointer;
+    -webkit-transition: all linear .3s;
+    -moz-transition: all linear .3s;
+    -ms-transition: all linear .3s;
+    -o-transition: all linear .3s;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.account_sidebar_profile .img label:hover {
+    background: var(--colorYellow);
+    border-color: var(--colorYellow);
+    color: var(--colorBlack);
 }
