@@ -1,5 +1,3 @@
-// Generic form open and closer
-
 $(document).on('click', '.edit_link', function () {
     const form = this.id;
     $('.label_' + form).toggle();
@@ -441,3 +439,46 @@ async function submitProfile() {
         throw new Error(e);
     }
 }
+
+const removeModal = new tingle.modal({
+    footer: true
+});
+
+// set content
+removeModal.setContent('Are you sure you wish to remove your profile picture?');
+
+// add a button
+removeModal.addFooterBtn(
+    'Remove',
+    'tingle-btn tingle-btn--primary',
+    async function () {
+        try {
+            await fetch('/account/personal-info/removeprofile', {
+                method: 'POST'
+            });
+            $('#formNotification').text('Profile picture successfully removed');
+            $('#formNotification').fadeIn();
+            setTimeout(function () {
+                $('#formNotification').fadeOut();
+            }, 2000);
+            $('#profilePicHolder').attr('src', '/assets/images/profile.jpg');
+            removeModal.close();
+        } catch (e) {
+            alert(e);
+            throw new Error(e);
+        }
+    }
+);
+
+// add another button
+removeModal.addFooterBtn(
+    'Cancel',
+    'tingle-btn tingle-btn--default',
+    function () {
+        removeModal.close();
+    }
+);
+
+$(document).on('click', '.remove_link', function () {
+    removeModal.open();
+});

@@ -3,12 +3,18 @@ import { body } from 'express-validator';
 import User from '../models/user.js';
 
 export const signup = [
-    body('firstName')
+    body('username')
         .exists({ checkFalsy: true })
-        .withMessage('You must type a first name'),
-    body('lastName')
-        .exists({ checkFalsy: true })
-        .withMessage('You must type a last name'),
+        .withMessage('Please enter a username')
+        .custom((value, { req }) => {
+            return User.findOne({ username: value }).then((userDoc) => {
+                if (userDoc) {
+                    return Promise.reject(
+                        'Username exists already, please try a different one'
+                    );
+                }
+            });
+        }),
     body('email')
         .exists({ checkFalsy: true })
         .withMessage('Please enter a valid email')
@@ -47,9 +53,7 @@ export const signup = [
 export const login = [
     body('email')
         .exists({ checkFalsy: true })
-        .withMessage('Please enter an email')
-        .isEmail()
-        .withMessage('Please enter a valid email'),
+        .withMessage('Please enter an email/username'),
     body('password')
         .exists({ checkFalsy: true })
         .withMessage('You must type a password')

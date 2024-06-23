@@ -13,7 +13,7 @@
                     <div class="col-10 d-flex flex-wrap justify-content-between">
                         <div class="account_heading_text">
                             <h1>Account</h1>
-                            <p><%= user.firstName + ' ' + user.lastName %> - <a href="/account/profile">View profile</a></p>
+                            <p><% if (user.firstName && user.lastName) { %><%= user.firstName + ' ' + user.lastName %> - <% } %><a href="/account/profile">View profile</a></p>
                         </div>
                         <div>
                             <form action="/logout" method="post">
@@ -50,12 +50,12 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-duration="1.5s">
-                        <a href="/account/personal-info">
+                        <a href="/account/security">
                             <div class="account_item">
                                 <div class="account_text">
-                                    <i class="far fa-address-card"></i>
-                                    <h3>Personal Info</h3>
-                                    <p>Manage your personal information so we can best serve you</p>
+                                    <i class="far fa-lock"></i>
+                                    <h3>Login and Security</h3>
+                                    <p>Manage your passwords, 2FA and other important settings to keep you secure/p>
                                 </div>
                             </div>
                         </a>

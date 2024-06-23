@@ -1,0 +1,104 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <!--=============================
+        PAGE HEADING START
+    ==============================-->
+    <section>
+        <div class="account_overly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 d-flex flex-wrap justify-content-between">
+                        <div class="account_heading_text account_breadcrumbs">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class="bc_black" href="/account">Account</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Login and Security</li>
+                                </ol>
+                            </nav>
+                            <h1>Personal Info</h1>                           
+                            <input type="hidden" name="user" id="user" value="<%= user._id %>">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="alert alert-success collapse" id="formNotification" role="alert">
+                            Name successfully updated
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        PAGE HEADING END
+    ==============================-->
+
+    <!--=============================
+        CONTENT START
+    ==============================-->
+    <section class="account_container mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 me-5">
+                    <div class="row">
+                        <div class="account_content">
+                            <div class="account_options wow fadeInUp" data-wow-duration="1.5s">
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>
+                                            Email/Login
+                                            <span class="edit_link" id="emailForm">Edit</span>
+                                        </h3>
+                                        <div class="label_name">
+                                            <p><%=user.email %></p>
+                                        </div>
+                                        <div class="row account_form hidden form_name">
+                                            <div class="col">
+                                                <input type="text" name="firstName" id="firstName" placeholder="First Name" value="<%= user.firstName %>">
+                                                <p class="hidden form_error_text firstName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="<%= user.lastName %>">
+                                                <p class="hidden form_error_text lastName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
+                                            </div>
+                                        </div>
+                                        <div class="row account_form hidden button_name">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="submit_name" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-7">
+                    <div class="account_sidebar sticky_sidebar wow fadeInUp" data-wow-duration="1.5s">
+                        <div class="account_sidebar_profile">
+                            <h3>Profile Picture</h3>
+                            <div class="row button_profile">
+                                <div class="col animated_button">
+                                    <p class="remove_link">Remove</p>
+                                    <button class="common_btn" id="submit_profile" type="submit">Save</button>
+                                    <p class="hidden form_error_text_profile profile_error"><i class="fas fa-exclamation-triangle"></i> Please upload a valid logo (JPG or PNG)</p>
+                                </div>
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        CONTENT END
+    ==============================-->
+
+    <%- include('../includes/footer.ejs') %>
+
+
+</body>
+
+</html>

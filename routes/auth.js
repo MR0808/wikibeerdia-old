@@ -8,12 +8,7 @@ const router = express.Router();
 
 router.get('/login', authController.getLogin);
 
-router.post(
-    '/login',
-    ...validators.login,
-    ...sanitizers.email,
-    authController.postLogin
-);
+router.post('/login', ...validators.login, authController.postLogin);
 
 router.get('/signup', authController.getSignup);
 

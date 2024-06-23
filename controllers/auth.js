@@ -38,7 +38,9 @@ export async function postLogin(req, res, next) {
         });
     }
     try {
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({
+            $or: [{ email: email }, { username: email }]
+        });
         if (!user) {
             return res.status(422).render('auth/login', {
                 path: '/login',
@@ -88,9 +90,8 @@ export const getSignup = (req, res, next) => {
         path: '/signup',
         pageTitle: 'Signup',
         oldInput: {
-            firstName: '',
-            lastName: '',
-            email: ''
+            email: '',
+            username: ''
         },
         validationErrors: []
     });
@@ -105,8 +106,7 @@ export async function postSignup(req, res, next) {
             path: '/signup',
             pageTitle: 'Signup',
             oldInput: {
-                firstName: body.firstName,
-                lastName: body.lastName,
+                username: body.username,
                 email: body.email
             },
             validationErrors: errors.array()
@@ -115,10 +115,10 @@ export async function postSignup(req, res, next) {
     try {
         const hashedPassword = await bcrypt.hash(body.password, 12);
         const user = new User({
-            firstName: body.firstName,
-            lastName: body.lastName,
+            username: body.username,
             email: body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            passwordLastUpdated: new Date()
         });
         const newUser = await user.save();
         const token = new Token({
@@ -312,6 +312,7 @@ export async function postNewPassword(req, res, next) {
         resetUser.password = hashedPassword;
         resetUser.resetToken = undefined;
         resetUser.resetTokenExpiration = undefined;
+        resetUser.passwordLastUpdated = new Date();
         await resetUser.save();
         res.render('auth/new-finished', {
             path: '/new-finished',

@@ -34,19 +34,22 @@ export async function getPersonalInfo(req, res, next) {
                 .sort('name')
                 .select('name');
         }
-        const dob = DateTime.fromJSDate(user.dateOfBirth);
+        let dobLabel = '';
+        let dobFormat = '';
+        if (user.dateOfBirth) {
+            const dob = DateTime.fromJSDate(user.dateOfBirth);
+            dobLabel = dob.toLocaleString(DateTime.DATE_FULL);
+            dobFormat = dob.toFormat('yyyy-LL-dd');
+        }
         res.render('account/personal-info', {
             pageTitle: 'Personal Info',
             path: '/account/personal-info',
             blackHeading: true,
             user: user,
-            validationErrors: [],
-            editing: false,
-            hasError: false,
             countries: countries,
             states: states,
-            dob: dob.toLocaleString(DateTime.DATE_FULL),
-            dobFormat: dob.toFormat('yyyy-LL-dd')
+            dob: dobLabel,
+            dobFormat: dobFormat
         });
     } catch (err) {
         console.log(err);
@@ -173,6 +176,41 @@ export async function postPersonalInfoProfile(req, res, next) {
         req.session.user = await user.save();
         data = { result: 'success' };
         return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postPersonalInfoRemoveProfile(req, res, next) {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: req.session.user },
+            { $unset: { profilePicture: 1 } },
+            { new: true }
+        );
+        req.session.user = user;
+        const data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function getSecurity(req, res, next) {
+    try {
+        const user = await User.findById(req.session.user);
+        res.render('account/security', {
+            pageTitle: 'Login and Security',
+            path: '/account/security',
+            blackHeading: true,
+            user: user
+        });
     } catch (err) {
         console.log(err);
         const error = new Error(err);

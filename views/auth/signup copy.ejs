@@ -42,13 +42,21 @@
                                     <h4>Registration</h4>
                                     <form action="/signup" method="POST" novalidate>
                                         <div class="single_input">
-                                            <label>Username</label>
-                                            <input type="text" name="username" id="username" placeholder="Username" class="<%= validationErrors.find( e => e.path === 'username') ? 'invalid' : '' %>" value="<%= oldInput.username %>"><i class="fas fa-check"></i>
-                                            <% if (validationErrors.find( e => e.path === 'username')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
-                                                    const usernameError = validationErrors.find( e => e.path === 'username');
-                                                    %><%= usernameError.msg; %></p>
-                                            <% } %>
+                                            <label>Name</label>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input type="text" name="firstName" id="firstName" placeholder="First Name" class="<%= validationErrors.find( e => e.path === 'firstName') ? 'invalid' : '' %>" value="<%= oldInput.firstName %>">
+                                                    <% if (validationErrors.find( e => e.path === 'firstName')) { %>
+                                                        <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
+                                                    <% } %>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="<%= validationErrors.find( e => e.path === 'lastName') ? 'invalid' : '' %>" value="<%= oldInput.lastName %>">
+                                                    <% if (validationErrors.find( e => e.path === 'lastName')) { %>
+                                                        <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
+                                                    <% } %>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="single_input">
                                             <label>Email</label>

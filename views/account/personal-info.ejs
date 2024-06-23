@@ -52,7 +52,15 @@
                                             <span class="edit_link" id="name">Edit</span>
                                         </h3>
                                         <div class="label_name">
-                                            <p><%=user.firstName + ' ' + user.lastName %></p>
+                                            <% 
+                                            let nameLabel;
+                                            if (!user.firstName) {
+                                                nameLabel = 'Not specified'
+                                            } else {
+                                                nameLabel = user.firstName + ' ' + user.lastName
+                                            }
+                                            %>
+                                            <p <% if (nameLabel === 'Not specified') { %>class="italic"<% } %> id="p_name"><%=nameLabel %></p>
                                         </div>
                                         <div class="row account_form hidden form_name">
                                             <div class="col">
@@ -214,26 +222,17 @@
                             </div>
                             <div class="row button_profile">
                                 <div class="col animated_button">
+                                    <p class="remove_link">Remove</p>
                                     <button class="common_btn" id="submit_profile" type="submit">Save</button>
                                     <p class="hidden form_error_text_profile profile_error"><i class="fas fa-exclamation-triangle"></i> Please upload a valid logo (JPG or PNG)</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="sidebar_dropdown sidebar_wizerd">
-                            <h3>Type</h3>
-                            <select class="select_2" name="state">
-                                <option value="">Select Type</option>
-                                <option value="">Sell</option>
-                                <option value="">Rent</option>
-                                <option value="">Buy</option>
-                            </select>
-                        </div>                       
+                        </div>                
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <!--=============================
         CONTENT END
     ==============================-->
@@ -247,8 +246,8 @@
         let firstNameOld = "<%= user.firstName %>";
         let lastNameOld = "<%= user.lastName %>";
         let genderOld = "<%= user.gender %>";
-        let countryOld = "<%= user.country._id %>";
-        let stateOld = "<%= user.state._id %>";
+        let countryOld = "<% if (typeof user.country !== 'undefined') { %><%= user.country._id %><% } %>";
+        let stateOld = "<% if (typeof user.state !== 'undefined') { %><%= user.state._id %><% } %>";
         let dobOld = "<%= dobFormat %>";
         let profileOld = "<%= user.profilePicture %>";     
 

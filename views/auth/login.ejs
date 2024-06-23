@@ -47,8 +47,8 @@
                                     <% } %>
                                     <form action="/login" method="POST" novalidate>
                                         <div class="single_input">
-                                            <label>Email</label>
-                                            <input type="email" name="email" id="email" placeholder="Email" class="<%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>" value="<%= oldInput.email %>">
+                                            <label>Email/Username</label>
+                                            <input type="text" name="email" id="email" placeholder="Email/Username" class="<%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>" value="<%= oldInput.email %>">
                                             <% if (validationErrors.find( e => e.path === 'email')) { %>
                                                 <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
                                                     const emailError = validationErrors.find( e => e.path === 'email');

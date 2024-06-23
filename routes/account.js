@@ -49,4 +49,13 @@ router.post(
     accountController.postPersonalInfoProfile
 );
 
+router.post(
+    '/personal-info/removeprofile',
+    accountController.postPersonalInfoRemoveProfile
+);
+
+// Login and Security
+
+router.get('/security', isAuth, accountController.getSecurity);
+
 export default router;

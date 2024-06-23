@@ -7903,3 +7903,12 @@ button {
     border-color: var(--colorYellow);
     color: var(--colorBlack);
 }
+
+.remove_link {
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.remove_link:hover {
+    text-decoration: underline;
+}
