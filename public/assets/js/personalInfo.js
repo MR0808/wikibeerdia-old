@@ -3,20 +3,12 @@ $(document).on('click', '.edit_link', function () {
     $('.label_' + form).toggle();
     if ($('.form_' + form).css('display') === 'none') {
         $('#' + form).text('Cancel');
-        switch (form) {
-            case 'name':
-            case 'location':
-                $('.form_' + form).css('display', 'flex');
-                break;
-            case 'genderForm':
-            case 'dob':
-                $('.form_' + form).css('display', 'block');
-        }
-        $('.button_' + form).css('display', 'flex');
+        $('.form_' + form).removeClass('hidden');
+        $('.button_' + form).removeClass('hidden');
     } else {
         $('#' + form).text('Edit');
-        $('.form_' + form).css('display', 'none');
-        $('.button_' + form).css('display', 'none');
+        $('.form_' + form).addClass('hidden');
+        $('.button_' + form).addClass('hidden');
     }
 });
 
@@ -29,6 +21,10 @@ $(document).on('click', '#submit_name', function () {
 
 $(document).on('click', '#name', function () {
     if ($('#name').text() === 'Cancel') {
+        $('#firstName').removeClass('invalid');
+        $('.firstName_error').addClass('hidden');
+        $('#lastName').removeClass('invalid');
+        $('.lastName_error').addClass('hidden');
         if (firstNameOld) {
             $('#firstName').val(firstNameOld);
         } else {
@@ -61,11 +57,17 @@ async function submitName() {
         if (data.result === 'error') {
             if (data.errors.find((e) => e.path === 'firstName')) {
                 $('#firstName').addClass('invalid');
-                $('.firstName_error').show();
+                $('.firstName_error').removeClass('hidden');
+            } else {
+                $('#firstName').removeClass('invalid');
+                $('.firstName_error').addClass('hidden');
             }
             if (data.errors.find((e) => e.path === 'lastName')) {
                 $('#lastName').addClass('invalid');
-                $('.lastName_error').show();
+                $('.lastName_error').removeClass('hidden');
+            } else {
+                $('#lastName').removeClass('invalid');
+                $('.lastName_error').addClass('hidden');
             }
             $('#submit_name').removeClass('loading');
         } else {
@@ -73,14 +75,15 @@ async function submitName() {
                 .children('p')
                 .text($('#firstName').val() + ' ' + $('#lastName').val());
             $('#firstName').removeClass('invalid');
-            $('.firstName_error').hide();
+            $('.firstName_error').addClass('hidden');
             $('#lastName').removeClass('invalid');
-            $('.lastName_error').hide();
+            $('.lastName_error').addClass('hidden');
             $('#submit_name').removeClass('loading');
             $('.label_name').toggle();
             $('#name').text('Edit');
-            $('.form_name').css('display', 'none');
-            $('.button_name').css('display', 'none');
+            $('.form_name').addClass('hidden');
+            $('.button_name').addClass('hidden');
+            $('#p_name').removeClass('italic');
             $('#formNotification').text('Name successfully updated');
             $('#formNotification').fadeIn();
             setTimeout(function () {
@@ -104,6 +107,8 @@ $('#gender').trigger('change');
 
 $(document).on('click', '#genderForm', function () {
     if ($('#genderForm').text() === 'Cancel') {
+        $('#gender').removeClass('invalid');
+        $('.gender_error').addClass('hidden');
         if (genderOld) {
             $('#gender').val(genderOld).trigger('change');
         } else {
@@ -134,7 +139,7 @@ async function submitGender() {
         const data = jsonData.data;
         if (data.result === 'error') {
             $('#gender').addClass('invalid');
-            $('.gender_error').show();
+            $('.gender_error').removeClass('hidden');
             $('#submit_gender').removeClass('loading');
         } else {
             let gender = $('#gender').val();
@@ -144,12 +149,12 @@ async function submitGender() {
             }
             $('.label_genderForm').children('p').text(gender);
             $('#gender').removeClass('invalid');
-            $('.gender_error').hide();
+            $('.gender_error').addClass('hidden');
             $('#submit_gender').removeClass('loading');
             $('.label_genderForm').toggle();
             $('#genderForm').text('Edit');
-            $('.form_genderForm').css('display', 'none');
-            $('.button_genderForm').css('display', 'none');
+            $('.form_genderForm').addClass('hidden');
+            $('.button_genderForm').addClass('hidden');
             $('#p_genderForm').removeClass('italic');
             $('#formNotification').text('Gender successfully updated');
             $('#formNotification').fadeIn();
@@ -180,6 +185,10 @@ $('#state').trigger('change');
 
 $(document).on('click', '#location', function () {
     if ($('#location').text() === 'Cancel') {
+        $('#country').removeClass('invalid');
+        $('.country_error').addClass('hidden');
+        $('#state').removeClass('invalid');
+        $('.state_error').addClass('hidden');
         if (countryOld) {
             $('#country').val(countryOld).trigger('change');
             if (!stateOld) {
@@ -264,32 +273,44 @@ async function submitLocation() {
         if (data.result === 'error') {
             if (data.errors.find((e) => e.path === 'country')) {
                 $('#country').addClass('invalid');
-                $('.country_error').show();
+                $('.country_error').removeClass('hidden');
+            } else {
+                $('#country').removeClass('invalid');
+                $('.country_error').addClass('hidden');
             }
             if (data.errors.find((e) => e.path === 'state')) {
                 $('#state').addClass('invalid');
-                $('.state_error').show();
+                $('.state_error').removeClass('hidden');
+            } else {
+                $('#state').removeClass('invalid');
+                $('.state_error').addClass('hidden');
             }
             $('#submit_location').removeClass('loading');
         } else {
             countryOld = $('#country').val();
             stateOld = $('#state').val();
-            $('.label_location')
-                .children('p')
-                .text(
-                    $('#state :selected').text() +
-                        ', ' +
-                        $('#country :selected').text()
-                );
+            if (stateOld) {
+                $('.label_location')
+                    .children('p')
+                    .text(
+                        $('#state :selected').text() +
+                            ', ' +
+                            $('#country :selected').text()
+                    );
+            } else {
+                $('.label_location')
+                    .children('p')
+                    .text($('#country :selected').text());
+            }
             $('#country').removeClass('invalid');
-            $('.country_error').hide();
+            $('.country_error').addClass('hidden');
             $('#state').removeClass('invalid');
-            $('.lstate_error').hide();
+            $('.state_error').addClass('hidden');
             $('#submit_location').removeClass('loading');
             $('.label_location').toggle();
             $('#location').text('Edit');
-            $('.form_location').css('display', 'none');
-            $('.button_location').css('display', 'none');
+            $('.form_location').addClass('hidden');
+            $('.button_location').addClass('hidden');
             $('#formNotification').text('Location successfully updated');
             $('#formNotification').fadeIn();
             setTimeout(function () {
@@ -308,23 +329,25 @@ const DateTime = luxon.DateTime;
 let maxDate = new Date();
 maxDate.setFullYear(maxDate.getFullYear() - 18);
 
-$('#dateOfBirth').flatpickr({
-    altInput: true,
-    altFormat: 'j F, Y',
-    dateFormat: 'Y-m-d',
-    maxDate: maxDate
+$('#dateOfBirth').pickadate({
+    selectYears: 100,
+    selectMonths: true,
+    max: maxDate,
+    formatSubmit: 'yyyy-mm-dd',
+    hiddenName: true,
+    today: ''
 });
 
 $(document).on('click', '#dob', function () {
-    const fp = flatpickr('#dateOfBirth', {});
+    const dobPicker = $('#dateOfBirth').pickadate();
+    const picker = dobPicker.pickadate('picker');
     if ($('#dob').text() === 'Cancel') {
+        $('#dateOfBirth').removeClass('invalid');
+        $('.dob_error').addClass('hidden');
         if (dobOld) {
-            fp.setDate(dobOld);
-            console.log(fp.config);
-            fp.set('altInput', true);
+            picker.set('select', new Date(dobOld));
         } else {
-            fp.clear();
-            fp.set('altInput', true);
+            picker.clear();
         }
     }
 });
@@ -337,7 +360,7 @@ $(document).on('click', '#submit_dob', function () {
 async function submitDob() {
     let jsonData;
     const formData = {
-        dateOfBirth: $('#dateOfBirth').val()
+        dateOfBirth: $('[name="dateOfBirth"]').val()
     };
     try {
         const returnedData = await fetch('/account/personal-info/dob', {
@@ -350,22 +373,22 @@ async function submitDob() {
         jsonData = await returnedData.json();
         const data = jsonData.data;
         if (data.result === 'error') {
-            $('.form-control').addClass('invalid');
-            $('.dob_error').show();
+            $('#dateOfBirth').addClass('invalid');
+            $('.dob_error').removeClass('hidden');
             $('#submit_dob').removeClass('loading');
         } else {
-            let dob = DateTime.fromISO($('#dateOfBirth').val());
-            dobOld = $('#dateOfBirth').val();
+            let dob = DateTime.fromISO($('[name="dateOfBirth"]').val());
+            dobOld = $('[name="dateOfBirth"]').val();
             $('.label_dob')
                 .children('p')
                 .text(dob.toLocaleString(DateTime.DATE_FULL));
-            $('.form-control').removeClass('invalid');
-            $('.dob_error').hide();
+            $('#dateOfBirth').removeClass('invalid');
+            $('.dob_error').addClass('hidden');
             $('#submit_dob').removeClass('loading');
             $('.label_dob').toggle();
             $('#dob').text('Edit');
-            $('.form_dob').css('display', 'none');
-            $('.button_dob').css('display', 'none');
+            $('.form_dob').addClass('hidden');
+            $('.button_dob').addClass('hidden');
             $('#p_dob').removeClass('italic');
             $('#formNotification').text('Date of birth successfully updated');
             $('#formNotification').fadeIn();
@@ -398,11 +421,6 @@ profileInput.change(function (e) {
     }
 });
 
-$(document).on('click', '.profile-delete', function () {
-    $('.hidden').hide();
-    profileInput.val('');
-});
-
 $(document).on('click', '#submit_profile', function () {
     $('#submit_profile').addClass('loading');
     submitProfile();
@@ -422,11 +440,11 @@ async function submitProfile() {
         const data = jsonData.data;
         if (data.result === 'error') {
             $('#profilePicHolder').addClass('invalid');
-            $('.profile_error').show();
+            $('.profile_error').removeClass('hidden');
             $('#submit_profile').removeClass('loading');
         } else {
             $('#profilePicHolder').removeClass('invalid');
-            $('.profile_error').hide();
+            $('.profile_error').addClass('hidden');
             $('#submit_profile').removeClass('loading');
             $('#formNotification').text('Profile picture successfully updated');
             $('#formNotification').fadeIn();

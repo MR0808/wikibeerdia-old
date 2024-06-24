@@ -43,7 +43,18 @@
                                     <form action="/signup" method="POST" novalidate>
                                         <div class="single_input">
                                             <label>Username</label>
-                                            <input type="text" name="username" id="username" placeholder="Username" class="<%= validationErrors.find( e => e.path === 'username') ? 'invalid' : '' %>" value="<%= oldInput.username %>"><i class="fas fa-check"></i>
+                                            <input type="text" name="username" id="username" placeholder="Username" class="<%= validationErrors.find( e => e.path === 'username') ? 'invalid' : '' %>" value="<%= oldInput.username %>">
+                                            <span class="fa-stack fa-2x userLoading hidden">
+                                                <i class="fas fa-circle-notch fa-stack-2x fa-spin"></i>
+                                            </span>
+                                            <span class="fa-stack fa-2x allowed hidden">
+                                                <i class="fal fa-circle fa-stack-2x" style="color: #00b300;"></i>
+                                                <i class="fas fa-check fa-stack-1x fa-inverse" style="color: #00b300;" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="Username available"></i>
+                                            </span>
+                                            <span class="fa-stack fa-2x notallowed hidden">
+                                                <i class="fal fa-circle fa-stack-2x" style="color: #FF3845;"></i>
+                                                <i class="fas fa-times fa-stack-1x fa-inverse" style="color: #FF3845;" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="Username already exists"></i>
+                                            </span>
                                             <% if (validationErrors.find( e => e.path === 'username')) { %>
                                                 <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
                                                     const usernameError = validationErrors.find( e => e.path === 'username');
@@ -99,6 +110,41 @@
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        $(document).on('blur', '#username', function () {
+            if ($('#username').val()) {
+                $('.userLoading').removeClass('hidden')
+                $('.allowed').addClass('hidden')
+                $('.notallowed').addClass('hidden')
+                checkUsername()
+            }
+        });
+
+        async function checkUsername() {
+            let jsonData;
+            const formData = { username: $('#username').val() };
+            try {
+                const returnedData = await fetch('/checkUsername', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                jsonData = await returnedData.json();
+                const data = jsonData.data;
+                if (data.result === 'error') {
+                    $('.userLoading').addClass('hidden')
+                    $('.notallowed').removeClass('hidden')
+                } else {
+                    $('.userLoading').addClass('hidden')
+                    $('.allowed').removeClass('hidden')
+                }
+            } catch (e) {
+                alert(e);
+                throw new Error(e);
+            }
+        }
 
     </script>
 

@@ -37,4 +37,6 @@ router.post(
     authController.postNewPassword
 );
 
+router.post('/checkUsername', authController.postCheckUsername);
+
 export default router;

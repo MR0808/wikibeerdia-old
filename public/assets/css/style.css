@@ -7565,7 +7565,7 @@ button {
 
 .hidden {
     padding-bottom: 10px;
-    display: none;
+    display: none !important;
 }
 
 .image-list .image-item {

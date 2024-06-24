@@ -324,3 +324,23 @@ export async function postNewPassword(req, res, next) {
         return next(error);
     }
 }
+
+export async function postCheckUsername(req, res, next) {
+    try {
+        const count = await User.findOne({
+            username: req.body.username
+        }).countDocuments();
+        let data;
+        if (count === 0) {
+            data = { result: 'success' };
+        } else {
+            data = { result: 'error' };
+        }
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
