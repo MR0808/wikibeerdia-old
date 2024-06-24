@@ -12,11 +12,11 @@ router.get('/add-brewery', isAuth, breweryController.getAddBrewery);
 router.post(
     '/add-brewery',
     isAuth,
+    ...validators.addBrewery,
     breweryUploadHandler.fields([
         { name: 'logo', maxCount: 1 },
         { name: 'breweryImages', maxcount: 20 }
     ]),
-    ...validators.addBrewery,
     breweryController.postAddBrewery
 );
 

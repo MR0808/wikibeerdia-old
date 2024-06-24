@@ -18,14 +18,14 @@
                                     <li class="breadcrumb-item active" aria-current="page">Login and Security</li>
                                 </ol>
                             </nav>
-                            <h1>Personal Info</h1>                           
+                            <h1>Personal Info</h1>
                             <input type="hidden" name="user" id="user" value="<%= user._id %>">
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="alert alert-success collapse" id="formNotification" role="alert">
                             Name successfully updated
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,25 +48,25 @@
                                 <div class="account_option_item">
                                     <div class="account_option_item_text">
                                         <h3>
-                                            Email/Login
+                                            Email
                                             <span class="edit_link" id="emailForm">Edit</span>
                                         </h3>
-                                        <div class="label_name">
-                                            <p><%=user.email %></p>
+                                        <div class="label_emailForm">
+                                            <p id="p_emailForm">
+                                                <%=user.email %>
+                                                <% if (!user.isVerified) { %>
+                                                <span>Unverified</span>
+                                            <div id="resend">Resend email</div>
+                                            <% } %>
+                                            </p>
                                         </div>
-                                        <div class="row account_form hidden form_name">
-                                            <div class="col">
-                                                <input type="text" name="firstName" id="firstName" placeholder="First Name" value="<%= user.firstName %>">
-                                                <p class="hidden form_error_text firstName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a first name</p>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="<%= user.lastName %>">
-                                                <p class="hidden form_error_text lastName_error"><i class="fas fa-exclamation-triangle"></i> Please enter a last name</p>
-                                            </div>
+                                        <div class="account_form hidden form_emailForm">
+                                            <input type="email" id="email" name="email" value="<%=user.email %>">
+                                            <p class="hidden form_error_text email_error"><i class="fas fa-exclamation-triangle"></i> Please select a valid email</p>
                                         </div>
-                                        <div class="row account_form hidden button_name">
+                                        <div class="row account_form hidden button_emailForm">
                                             <div class="col animated_button">
-                                                <button class="common_btn" id="submit_name" type="submit">Update</button>
+                                                <button class="common_btn" id="submit_emailForm" type="submit">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                     <p class="hidden form_error_text_profile profile_error"><i class="fas fa-exclamation-triangle"></i> Please upload a valid logo (JPG or PNG)</p>
                                 </div>
                             </div>
-                        </div>                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,12 @@
     ==============================-->
 
     <%- include('../includes/footer.ejs') %>
+    <script src="/assets/js/security.js"></script>
+
+
+    <script>
+        let emailOld = "<%= user.email %>";
+    </script>
 
 
 </body>

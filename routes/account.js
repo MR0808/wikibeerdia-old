@@ -16,46 +16,64 @@ router.get('/personal-info', isAuth, accountController.getPersonalInfo);
 
 router.post(
     '/personal-info/name',
-    isAuth,
+    (res, req, next) => isAuth(res, req, next, 'user'),
     ...validators.personalInfoName,
     accountController.postPersonalInfoName
 );
 
 router.post(
     '/personal-info/gender',
-    isAuth,
+    (res, req, next) => isAuth(res, req, next, 'user'),
     ...validators.personalInfoGender,
     accountController.postPersonalInfoGender
 );
 
 router.post(
     '/personal-info/location',
-    isAuth,
+    (res, req, next) => isAuth(res, req, next, 'user'),
     ...validators.personalInfoLocation,
     accountController.postPersonalInfoLocation
 );
 
 router.post(
     '/personal-info/dob',
-    isAuth,
+    (res, req, next) => isAuth(res, req, next, 'user'),
     ...validators.personalInfoDob,
     accountController.postPersonalInfoDob
 );
 
 router.post(
     '/personal-info/profile',
-    isAuth,
+    (res, req, next) => isAuth(res, req, next, 'user'),
     userUploadHandler.fields([{ name: 'profilePicture', maxCount: 1 }]),
     accountController.postPersonalInfoProfile
 );
 
 router.post(
     '/personal-info/removeprofile',
+    (res, req, next) => isAuth(res, req, next, 'user'),
     accountController.postPersonalInfoRemoveProfile
 );
 
 // Login and Security
 
-router.get('/security', isAuth, accountController.getSecurity);
+router.get(
+    '/security',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    accountController.getSecurity
+);
+
+router.post(
+    '/security/email',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    ...validators.securityEmail,
+    accountController.postSecurityEmail
+);
+
+router.post(
+    '/security/resendEmail',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    accountController.postSecurityResendEmail
+);
 
 export default router;

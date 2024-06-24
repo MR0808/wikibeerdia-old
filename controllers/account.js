@@ -1,8 +1,9 @@
+import crypto from 'crypto';
+
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
 import { MailService } from '@sendgrid/mail';
 import mongoose from 'mongoose';
-import multer from 'multer';
 import { DateTime } from 'luxon';
 
 import User from '../models/user.js';
@@ -211,6 +212,79 @@ export async function getSecurity(req, res, next) {
             blackHeading: true,
             user: user
         });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postSecurityEmail(req, res, next) {
+    let errors = [];
+    let data;
+    let email = req.body.email;
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        const emailOld = user.email;
+        user.email = email;
+        user.emailOld = emailOld;
+        user.isVerified = false;
+        req.session.user = await user.save();
+        const token = new Token({
+            _userId: user._id,
+            token: crypto.randomBytes(16).toString('hex')
+        });
+        await token.save();
+        const mail = new MailService();
+        mail.setApiKey(process.env.SENDGRID_KEY);
+        const message = {
+            to: email,
+            subject: 'Verify your email',
+            from: {
+                name: 'Mark @ Wikibeerdia',
+                email: 'mark@wikibeerdia.com'
+            },
+            html: `Hello,<br>Please verify your account by clicking the link: <a href="http://${req.headers.host}/confirmation/${token.token}">http://${req.headers.host}/confirmation/${token.token}</a>`
+        };
+        await mail.send(message);
+
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postSecurityResendEmail(req, res, next) {
+    try {
+        const user = await User.findById(req.session.user);
+        const email = user.email;
+        user.isVerified = false;
+        req.session.user = await user.save();
+        const token = await Token.findOne({ _userId: user._id });
+        const mail = new MailService();
+        mail.setApiKey(process.env.SENDGRID_KEY);
+        const message = {
+            to: email,
+            subject: 'Verify your email',
+            from: {
+                name: 'Mark @ Wikibeerdia',
+                email: 'mark@wikibeerdia.com'
+            },
+            html: `Hello,<br>Please verify your account by clicking the link: <a href="http://${req.headers.host}/confirmation/${token.token}">http://${req.headers.host}/confirmation/${token.token}</a>`
+        };
+        await mail.send(message);
+        const data = { result: 'success' };
+        return res.status(200).json({ data: data });
     } catch (err) {
         console.log(err);
         const error = new Error(err);

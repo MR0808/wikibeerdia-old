@@ -20,6 +20,11 @@ var userSchema = new Schema(
         lastName: String,
         passwordLastUpdated: Date,
         dateOfBirth: Date,
+        access: {
+            type: String,
+            enum: ['Admin', 'User'],
+            default: 'User'
+        },
         gender: {
             type: String,
             enum: ['Male', 'Female', 'Other', 'NotSay']
@@ -37,6 +42,7 @@ var userSchema = new Schema(
             type: Boolean,
             default: false
         },
+        emailOld: String,
         passwordResetToken: String,
         passwordResetExpires: Date
     },

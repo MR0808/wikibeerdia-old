@@ -44,3 +44,21 @@ export const personalInfoDob = [
             }
         })
 ];
+
+export const securityEmail = [
+    body('email')
+        .exists({ checkFalsy: true })
+        .withMessage('Please enter a valid email')
+        .isEmail()
+        .withMessage('Please enter a valid email')
+        .custom((value, { req }) => {
+            return User.findOne({ email: value }).then((userDoc) => {
+                if (userDoc) {
+                    return Promise.reject(
+                        'Email already exists, please try again'
+                    );
+                }
+            });
+        })
+        .normalizeEmail()
+];

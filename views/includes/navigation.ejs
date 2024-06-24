@@ -1,80 +1,89 @@
 <!--=============================
         MAIN MENU START
     ==============================-->
-    <nav class="navbar navbar-expand-lg main_menu <% if (typeof blackHeading !== 'undefined') { %>main_menu_black<% } %>">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="/assets/images/logo.png" alt="Directory & Listings Template" class="img-fluid">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars bar_icon"></i>
-                <i class="far fa-times close_icon"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item">
-                        <a class="nav-link <% if (path === '/index') { %>active<% } %>" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about_us.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Listing <i class="far fa-angle-down"></i></a>
-                        <ul class="droap_menu">
-                            <li><a href="listing_grid_view.html">listing grid view</a></li>
-                            <li><a href="listing_left_sidebar.html">listing left sidebar</a></li>
-                            <li><a href="listing_right_sidebar.html">listing right sidebar</a></li>
-                            <li><a href="listing_details.html">listing details</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Blog <i class="far fa-angle-down"></i></a>
-                        <ul class="droap_menu">
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="blog_details.html">Blog details</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">pages <i class="far fa-angle-down"></i></a>
-                        <ul class="droap_menu">
-                            <li><a href="agent.html">agent</a></li>
-                            <li><a href="agent_details.html">agent details</a></li>
-                            <li><a href="checkout.html">checkout</a></li>
-                            <li>
-                                <form action="/logout" method="post">
-                                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
-                                    <button class="menu_button" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-                <ul class="menu_right d-flex align-items-center">
-                    <li class="white">
-                        <% if (isAuthenticated) { %>
-                        <a class="user_login" href="/account">
-                            <span> <img src="/assets/images/login_icon.png" alt="user" class="img-fluid w-100">
-                            </span>
-                            Account
-                        </a>
-                        <% } else { %>
-                            <a class="user_login" href="/login">Login</a> / <a class="user_login" href="/signup">Signup</a>
-                        <% } %>
-                    </li>
-                    <% if (isAuthenticated) { %>
-                        <li class="menu_btn">
-                            <a class="common_btn" href="dashboard_add_listing.html">Add Beer <i
-                                    class="far fa-plus"></i></a>
+<nav class="navbar navbar-expand-lg main_menu <% if (typeof blackHeading !== 'undefined') { %>main_menu_black<% } %>">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/assets/images/logo.png" alt="Directory & Listings Template" class="img-fluid">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars bar_icon"></i>
+            <i class="far fa-times close_icon"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                    <a class="nav-link <% if (path === '/index') { %>active<% } %>" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about_us.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Listing <i class="far fa-angle-down"></i></a>
+                    <ul class="droap_menu">
+                        <li><a href="listing_grid_view.html">listing grid view</a></li>
+                        <li><a href="listing_left_sidebar.html">listing left sidebar</a></li>
+                        <li><a href="listing_right_sidebar.html">listing right sidebar</a></li>
+                        <li><a href="listing_details.html">listing details</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog <i class="far fa-angle-down"></i></a>
+                    <ul class="droap_menu">
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="blog_details.html">Blog details</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item d-lg-none">
+                    <a class="nav-link" href="#">User <i class="far fa-angle-down"></i></a>
+                    <ul class="droap_menu">
+                        <li><a href="/user/profile">My Profile</a></li>
+                        <li><a href="/account">My Account</a></li>
+                        <li><a href="checkout.html">checkout</a></li>
+                        <li>
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
+                                <button class="menu_button" type="submit">Logout</button>
+                            </form>
                         </li>
-                    <% } %>
-                </ul>
-            </div>
+                    </ul>
+                </li>
+            </ul>
         </div>
-    </nav>
-    <!--=============================
+        <div class="collapse navbar-collapse">
+            <ul class="menu_right d-flex align-items-center navbar-nav m-auto">
+                <% if (isAuthenticated) { %>
+                <li class="nav-item">
+                    <a class="user_login" href="#">
+                        <% 
+                        let profile
+                        if (!userLoggedIn.profilePicture) {
+                            profile = '/assets/images/profile.jpg';
+                        } else {
+                            profile = '/' + userLoggedIn.profilePicture;
+                        }
+                    %>
+                        <img src="<%=profile %>" alt="user" class="img-fluid headerImg"> Account
+                    </a>
+                    <ul class="droap_menu">
+                        <li><a href="/user/profile">My Profile</a></li>
+                        <li><a href="/account">My Account</a></li>
+                        <li><a href="checkout.html">checkout</a></li>
+                        <li>
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="csrfToken" value="<%= csrfToken %>">
+                                <button class="menu_button" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                <% } else { %>
+                <div class="white"><a class="user_login" href="/login">Login</a> / <a class="user_login" href="/signup">Signup</a></div>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--=============================
         MAIN MENU END
     ==============================-->
