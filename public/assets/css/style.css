@@ -7936,3 +7936,15 @@ button {
 .label_emailForm div:hover {
     text-decoration: underline;
 }
+
+.username_button button {
+    width: 100%;
+}
+
+button:disabled {
+    background-color: var(--paraColor);
+}
+
+.valid {
+    color:rgb(0, 194, 95) !important;
+}

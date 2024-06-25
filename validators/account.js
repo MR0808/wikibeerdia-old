@@ -62,3 +62,18 @@ export const securityEmail = [
         })
         .normalizeEmail()
 ];
+
+export const securityUsername = [
+    body('username')
+        .exists({ checkFalsy: true })
+        .withMessage('Please enter a username')
+        .custom((value, { req }) => {
+            return User.findOne({ username: value }).then((userDoc) => {
+                if (userDoc) {
+                    return Promise.reject(
+                        'Username exists already, please try a different one'
+                    );
+                }
+            });
+        })
+];

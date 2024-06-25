@@ -123,3 +123,122 @@ async function resendEmail() {
         throw new Error(e);
     }
 }
+
+// Username Edit functions
+
+$(document).on('click', '#usernameForm', function () {
+    if ($('#usernameForm').text() === 'Cancel') {
+        $('#username').removeClass('invalid');
+        $('.username_error').addClass('hidden');
+        $('#submit_username').prop('disabled', true);
+        if (usernameOld) {
+            $('#username').val(usernameOld);
+        } else {
+            $('#username').val(null);
+        }
+    }
+});
+
+$(document).on('click', '#check_username', function () {
+    if ($('#username').val() && $('#username').val() !== usernameOld) {
+        $('#check_username').addClass('loading');
+        checkUsername();
+    } else if ($('#username').val() && $('#username').val() === usernameOld) {
+        $('.username_error').html(
+            '<i class="fas fa-check-square"></i> Username is available, update your changes'
+        );
+        $('.username_error').addClass('valid');
+        $('.username_error').removeClass('hidden');
+        $('#submit_username').prop('disabled', false);
+    }
+});
+
+async function checkUsername() {
+    let jsonData;
+    const formData = { username: $('#username').val() };
+    try {
+        const returnedData = await fetch('/checkUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        $('#check_username').removeClass('loading');
+        if (data.result === 'error') {
+            $('.username_error').html(
+                '<i class="fas fa-exclamation-triangle"></i> Username is taken, please try again'
+            );
+            $('.username_error').removeClass('valid');
+            $('.username_error').removeClass('hidden');
+            $('#submit_username').prop('disabled', true);
+        } else {
+            $('.username_error').html(
+                '<i class="fas fa-check-square"></i> Username is available, update your changes'
+            );
+            $('.username_error').addClass('valid');
+            $('.username_error').removeClass('hidden');
+            $('#submit_username').prop('disabled', false);
+        }
+    } catch (e) {
+        alert(e);
+        throw new Error(e);
+    }
+}
+
+$(document).on('click', '#submit_username', function () {
+    if ($('#username').val() !== usernameOld) {
+        $('#submit_username').addClass('loading');
+        submitUsername();
+    } else {
+        $('.label_usernameForm').toggle();
+        $('#usernameForm').text('Edit');
+        $('.form_usernameForm').addClass('hidden');
+        $('.button_usernameForm').addClass('hidden');
+    }
+});
+
+async function submitUsername() {
+    let jsonData;
+    const formData = {
+        username: $('#username').val()
+    };
+    try {
+        const returnedData = await fetch('/account/security/username', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        if (data.result === 'error') {
+            $('#username').addClass('invalid');
+            $('.form_usernameForm').children('p').text(data.errors[0].msg);
+            $('.username_error').removeClass('hidden');
+            $('#submit_usernameForm').removeClass('loading');
+        } else {
+            let username = $('#username').val();
+            usernameOld = $('#username').val();
+            $('.label_usernameForm').children('p').text(username);
+            $('#username').removeClass('invalid');
+            $('.username_error').addClass('hidden');
+            $('#submit_usernameForm').removeClass('loading');
+            $('.label_usernameForm').toggle();
+            $('#usernameForm').text('Edit');
+            $('.form_usernameForm').addClass('hidden');
+            $('.button_usernameForm').addClass('hidden');
+            $('#formNotification').text('Username successfully updated');
+            $('#formNotification').fadeIn();
+            setTimeout(function () {
+                $('#formNotification').fadeOut();
+            }, 2000);
+        }
+    } catch (e) {
+        alert(e);
+        throw new Error(e);
+    }
+}

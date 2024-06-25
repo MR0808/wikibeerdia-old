@@ -71,6 +71,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>
+                                            Username
+                                            <span class="edit_link" id="usernameForm">Edit</span>
+                                        </h3>
+                                        <div class="label_usernameForm">
+                                            <p id="p_usernameForm"><%=user.username %></p>
+                                        </div>
+                                        <div class="row account_form hidden form_usernameForm">
+                                            <div class="col-9">
+                                                <input type="text" name="username" id="username" placeholder="Username" value="<%= user.username %>">
+                                                <p class="hidden form_error_text username_error"><i class="fas fa-exclamation-triangle"></i> Please enter a valid username</p>
+                                            </div>
+                                            <div class="col-3 username_button">
+                                                <button class="common_btn" id="check_username" type="submit">Check</button>
+                                            </div>
+                                        </div>
+                                        <div class="row account_form hidden button_usernameForm">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="submit_username" type="submit" disabled>Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,6 +127,7 @@
 
     <script>
         let emailOld = "<%= user.email %>";
+        let usernameOld = "<%= user.username %>";
     </script>
 
 

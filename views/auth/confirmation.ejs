@@ -3,7 +3,7 @@
 <body>
     <%- include('../includes/navigation.ejs') %>
 
-        <!--=============================
+    <!--=============================
         BREADCRUMBS START
     ==============================-->
     <section class="breadcrumbs" style="background: url(/assets/images/signup-bg.jpg);">
@@ -41,7 +41,9 @@
                                 <div class="login_text">
                                     <p><%=message %></p>
                                     <% if (!error) { %>
-                                        <p><a href="/login">Login Now</a></p>
+                                    <% if (!isAuthenticated) { %>
+                                    <p><a href="/login">Login Now</a></p>
+                                    <% } %>
                                     <% } %>
                                 </div>
                             </div>

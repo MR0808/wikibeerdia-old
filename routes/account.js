@@ -76,4 +76,11 @@ router.post(
     accountController.postSecurityResendEmail
 );
 
+router.post(
+    '/security/username',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    ...validators.securityUsername,
+    accountController.postSecurityUsername
+);
+
 export default router;

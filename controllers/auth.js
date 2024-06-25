@@ -150,7 +150,7 @@ export async function postSignup(req, res, next) {
 }
 
 export async function getConfirmation(req, res, next) {
-    if (req.session.isLoggedIn) {
+    if (req.session.isLoggedIn && req.session.user.isVerified) {
         return res.redirect('/');
     }
     try {
@@ -182,7 +182,11 @@ export async function getConfirmation(req, res, next) {
             });
         }
         user.isVerified = true;
-        await user.save();
+        const newUser = await user.save();
+        if (req.session.isLoggedIn) {
+            req.session.user = newUser;
+        }
+        await Token.findByIdAndDelete(token._id);
         return res.status(400).render('auth/confirmation', {
             path: '/confirmation',
             pageTitle: 'Email Verification',

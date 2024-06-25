@@ -5,6 +5,9 @@ import { validationResult } from 'express-validator';
 import { MailService } from '@sendgrid/mail';
 import mongoose from 'mongoose';
 import { DateTime } from 'luxon';
+import QRCode from 'qrcode';
+import * as OTPAuth from 'otpauth';
+import encode from 'hi-base32';
 
 import User from '../models/user.js';
 import Token from '../models/token.js';
@@ -291,4 +294,70 @@ export async function postSecurityResendEmail(req, res, next) {
         error.httpStatusCode = 500;
         return next(error);
     }
+}
+
+export async function postSecurityUsername(req, res, next) {
+    let errors = [];
+    let data;
+    let username = req.body.username;
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        const user = await User.findById(req.session.user);
+        user.username = username;
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postSecurityEnable2FA(req, res, next) {
+    const username = req.body.username;
+    try {
+        const user = await User.findById(req.session.user);
+        const base32_secret = generateBase32Secret();
+        user.secret = base32_secret;
+        let totp = new OTPAuth.TOTP({
+            issuer: 'wikibeerdia.com',
+            label: 'Wikibeerdia',
+            algorithm: 'SHA1',
+            digits: 6,
+            secret: base32_secret
+        });
+        let otpauth_url = totp.toString();
+        QRCode.toDataURL(otpauth_url, (err) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'fail',
+                    message: 'Error while generating QR Code'
+                });
+            }
+            res.json({
+                status: 'success',
+                data: {
+                    qrCodeUrl: qrUrl,
+                    secret: base32_secret
+                }
+            });
+        });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+async function generateBase32Secret() {
+    const buffer = crypto.randomBytes(15);
+    const base32 = encode(buffer).replace(/=/g, '').substring(0, 24);
+    return base32;
 }

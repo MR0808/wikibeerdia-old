@@ -44,7 +44,8 @@ var userSchema = new Schema(
         },
         emailOld: String,
         passwordResetToken: String,
-        passwordResetExpires: Date
+        passwordResetExpires: Date,
+        secret: String
     },
     { timestamps: true }
 );
