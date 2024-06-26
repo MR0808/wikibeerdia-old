@@ -73,6 +73,7 @@ import configRoutes from './routes/config.js';
 import locationRoutes from './routes/location.js';
 import breweryRoutes from './routes/brewery.js';
 import accountRoutes from './routes/account.js';
+import otpRoutes from './routes/otp.js';
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -116,6 +117,7 @@ app.use('/config', configRoutes);
 app.use('/location', locationRoutes);
 app.use('/breweries', breweryRoutes);
 app.use('/account', accountRoutes);
+app.use('/otp', otpRoutes);
 
 app.get('/500', errorController.get500);
 

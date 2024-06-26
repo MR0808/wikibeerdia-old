@@ -242,3 +242,155 @@ async function submitUsername() {
         throw new Error(e);
     }
 }
+
+// Setup OTP
+
+$(document).on('click', '#setup_otp', function () {
+    generateOtp();
+});
+
+async function generateOtp() {
+    let jsonData;
+    try {
+        const returnedData = await fetch('/otp/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        $('#qrcode').html('');
+        new QRCode(document.getElementById('qrcode'), {
+            text: data.otpauth_url
+        });
+        $('#secretKey').text('Secret Key: ' + data.base32);
+        setupOtpModal.open();
+    } catch (e) {
+        console.log(e.stack);
+        alert(e);
+        throw new Error(e);
+    }
+}
+
+const setupOtpModal = new tingle.modal({
+    footer: true
+});
+
+setupOtpModal.setContent(
+    `<h1>Two-Factor Authentication</h1>
+    <hr>
+    <h3>Configuring Google Authenticator or Authy</h3>
+    <ol>
+        <li>1. Install Google Authenticator or Authy.</li>
+        <li>2. In the authenticator app, select '+' icon.</li>
+        <li>3. Select 'Scan a barcode (or QR code)' and use the phone's camera ot scane this barcode.</li>
+    </ol>
+    <h3>Scan QR Code</h3>
+    <div id="qrcode" class="qrcode"></div>
+    <h3>Or enter code into your app:</h3>
+    <p id="secretKey"></p>
+    <h3>Verify Code</h3>
+    <div>Please enter the code below to verify that the authentication worked:</div>
+    <div class="account_form">
+        <input type="text" name="token" id="token">
+        <p class="hidden form_error_text token_error"><i class="fas fa-exclamation-triangle"></i> Verification token incorrect</p>
+    </div>
+    `
+);
+
+setupOtpModal.addFooterBtn(
+    'Close',
+    'tingle-btn tingle-btn--default',
+    function () {
+        setupOtpModal.close();
+    }
+);
+
+setupOtpModal.addFooterBtn(
+    '<span class="button__text">Verify</span>',
+    'tingle-btn tingle-btn--primary verifyBtn',
+    function () {
+        $('.verifyBtn').addClass('button--loading');
+        $('.button__text').addClass('button__text_hidden');
+        verifyOtp();
+    }
+);
+
+async function verifyOtp() {
+    let jsonData;
+    const formData = {
+        token: $('#token').val()
+    };
+    try {
+        const returnedData = await fetch('/otp/verify', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        if (data.result === 'error') {
+            $('#token').addClass('invalid');
+            $('.token_error').removeClass('hidden');
+            $('.verifyBtn').removeClass('button--loading');
+            $('.button__text').removeClass('button__text_hidden');
+        } else {
+            $('#backupcodes').html(makeUL(data.recoveryCodes));
+            $('.button_otp').addClass('hidden');
+            $('.button_disable_otp').removeClass('hidden');
+            $('.tan').removeClass('hidden');
+            setupOtpModal.close();
+            otpVerifiedModal.open();
+            $('.verifyBtn').removeClass('button--loading');
+            $('.button__text').removeClass('button__text_hidden');
+        }
+    } catch (e) {
+        console.log(e.stack);
+        alert(e);
+        throw new Error(e);
+    }
+}
+
+const otpVerifiedModal = new tingle.modal({
+    footer: true
+});
+
+otpVerifiedModal.setContent(
+    `<h1>Two-Factor Authentication</h1>
+    <hr>
+    <h3>Verification Confirmed</h3>
+    <p>Two factor authentication has been enabled.</p>
+    <p>Please copy your backup codes below as these will not be possible to retrieve again</p>
+    <div id="backupcodes"></div>
+    `
+);
+
+otpVerifiedModal.addFooterBtn(
+    'Close',
+    'tingle-btn tingle-btn--default',
+    function () {
+        otpVerifiedModal.close();
+    }
+);
+
+function makeUL(array) {
+    // Create the list element:
+    var list = document.createElement('ul');
+
+    for (var i = 0; i < array.length; i++) {
+        // Create the list item:
+        var item = document.createElement('li');
+
+        // Set its contents:
+        item.appendChild(document.createTextNode(array[i]));
+
+        // Add it to the list:
+        list.appendChild(item);
+    }
+
+    // Finally, return the constructed list:
+    return list;
+}

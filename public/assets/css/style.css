@@ -7948,3 +7948,75 @@ button:disabled {
 .valid {
     color:rgb(0, 194, 95) !important;
 }
+
+.tingle-modal-box h1 {
+    font-size: 2rem;
+}
+
+.tingle-modal-box h3 {
+    padding-bottom: 20px;
+    color: var(--colorTan);
+    font-size: 1.25rem;
+}
+
+.tingle-modal-box ol {
+    padding-bottom: 20px;
+}
+
+.tingle-modal-box p {
+    padding-bottom: 20px;
+}
+
+.qrcode {
+    padding-bottom: 20px;
+}
+
+.qrcode img {
+    height: 196px !important;
+    width: 196px !important;
+}
+
+.verifyBtn {
+    position: relative;
+}
+
+.button__text {
+    color: var(--colorWhite) !important;
+    transition: all 0.2s;
+} 
+
+.button__text_hidden {
+    color: #3498db !important;
+}
+
+.button--loading::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.account_option_item_text h3 div {
+    color: var(--colorTan);
+    font-size: 16px;
+    font-weight: 600;
+}

@@ -6,11 +6,16 @@ var userSchema = new Schema(
     {
         username: {
             type: String,
-            required: true
+            required: true,
+            trim: true,
+            unique: true
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true,
+            trim: true,
+            lowercase: true
         },
         password: {
             type: String,
@@ -45,7 +50,23 @@ var userSchema = new Schema(
         emailOld: String,
         passwordResetToken: String,
         passwordResetExpires: Date,
-        secret: String
+        otp_enabled: {
+            type: Boolean,
+            default: false
+        },
+        otp_verified: {
+            type: Boolean,
+            default: false
+        },
+        otp_ascii: String,
+        otp_hex: String,
+        otp_base32: String,
+        otp_auth_url: String,
+        otp_backups: [
+            {
+                backup_code: String
+            }
+        ]
     },
     { timestamps: true }
 );

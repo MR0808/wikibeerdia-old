@@ -96,6 +96,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
+                                        <h3>Mobile App Authentication (2FA)
+                                            <div class="tan <% if (!user.otp_enabled) { %>hidden<% } %>">Enabled</div>
+                                        </h3>
+                                        <div class="label_usernameForm">
+                                            <p id="p_otp">Secure your account with two-factor authentication using an authenication app such as Google Authenticator or Authy.</p>
+                                        </div>
+                                        <div class="row account_form button_otp <% if (user.otp_enabled) { %>hidden<% } %>">
+                                            <div class=" col animated_button">
+                                                <button class="common_btn" id="setup_otp" type="submit">Setup 2FA</button>
+                                            </div>
+                                        </div>
+                                        <div class="row account_form button_disable_otp <% if (!user.otp_enabled) { %>hidden<% } %>">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="disable_otp" type="submit">Disable</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,6 +142,7 @@
     ==============================-->
 
     <%- include('../includes/footer.ejs') %>
+    <script src="/assets/js/qrcode.min.js"></script>
     <script src="/assets/js/security.js"></script>
 
 
