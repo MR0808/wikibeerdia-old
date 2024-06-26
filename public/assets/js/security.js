@@ -394,3 +394,57 @@ function makeUL(array) {
     // Finally, return the constructed list:
     return list;
 }
+
+$(document).on('click', '#disable_otp', function () {
+    otpDisableModal.open();
+});
+
+const otpDisableModal = new tingle.modal({
+    footer: true
+});
+
+otpDisableModal.setContent(
+    `<h1>Two-Factor Authentication</h1>
+    <hr>
+    <p>Are you sure you wish to disable two-factor authentication?</p>
+    `
+);
+
+otpDisableModal.addFooterBtn(
+    'Close',
+    'tingle-btn tingle-btn--default',
+    function () {
+        setupOtpModal.close();
+    }
+);
+
+otpDisableModal.addFooterBtn(
+    '<span class="button__text">Confirm</span>',
+    'tingle-btn tingle-btn--primary disableBtn',
+    function () {
+        $('.disableBtn').addClass('button--loading');
+        $('.button__text').addClass('button__text_hidden');
+        disableOtp();
+    }
+);
+
+async function disableOtp() {
+    try {
+        await fetch('/otp/disable', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        $('.button_otp').removeClass('hidden');
+        $('.button_disable_otp').addClass('hidden');
+        $('.tan').addClass('hidden');
+        otpDisableModal.close();
+        $('.disableBtn').removeClass('button--loading');
+        $('.button__text').removeClass('button__text_hidden');
+    } catch (e) {
+        console.log(e.stack);
+        alert(e);
+        throw new Error(e);
+    }
+}

@@ -7983,6 +7983,7 @@ button:disabled {
 .button__text {
     color: var(--colorWhite) !important;
     transition: all 0.2s;
+    font-size: 16px !important;
 } 
 
 .button__text_hidden {
