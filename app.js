@@ -48,7 +48,8 @@ app.use(
                 "'unsafe-inline'",
                 'js.stripe.com',
                 'cdn.jsdelivr.net',
-                "'unsafe-hashes'"
+                "'unsafe-hashes'",
+                'cdnjs.cloudflare.com'
             ],
             'style-src': [
                 "'self'",

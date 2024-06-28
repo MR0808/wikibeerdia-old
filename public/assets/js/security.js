@@ -448,3 +448,54 @@ async function disableOtp() {
         throw new Error(e);
     }
 }
+
+$(document).on('click', '#reset_codes', function () {
+    $('#reset_codes').removeClass('reset');
+    $('#reset_codes').addClass('loading');
+    $('#reset_codes').addClass('button-left');
+    resetCodes();
+});
+
+async function resetCodes() {
+    try {
+        const returnedData = await fetch('/otp/resetcodes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        $('#resetbackupcodes').html(makeUL(data.recoveryCodes));
+        resetCodesModal.open();
+        $('#reset_codes').addClass('reset');
+        $('#reset_codes').removeClass('loading');
+        $('#reset_codes').removeClass('button-left');
+    } catch (e) {
+        console.log(e.stack);
+        alert(e);
+        throw new Error(e);
+    }
+}
+
+const resetCodesModal = new tingle.modal({
+    footer: true
+});
+
+resetCodesModal.setContent(
+    `<h1>Two-Factor Authentication</h1>
+    <hr>
+    <h3>Recovery Codes</h3>
+    <p>Your recovery codes have been reset.</p>
+    <p>Please copy your backup codes below as these will not be possible to retrieve again</p>
+    <div id="resetbackupcodes"></div>
+    `
+);
+
+resetCodesModal.addFooterBtn(
+    'Close',
+    'tingle-btn tingle-btn--default',
+    function () {
+        resetCodesModal.close();
+    }
+);

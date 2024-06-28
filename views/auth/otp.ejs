@@ -1,0 +1,86 @@
+<%- include('../includes/header.ejs') %>
+
+<body>
+    <%- include('../includes/navigation.ejs') %>
+
+    <!--=============================
+        BREADCRUMBS START
+    ==============================-->
+    <section class="breadcrumbs" style="background: url(/assets/images/login-bg.jpg);">
+        <div class="breadcrumbs_overly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 justify-content-center">
+                        <div class="breadcrumb_text wow fadeInUp" data-wow-duration="1.5s">
+                            <h1>Two-Factor Authentication</h1>
+                            <ul class="d-flex flex-wrap justify-content-center">
+                                <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                                <li><a href="/otp">Two-Factor Authentication</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        BREADCRUMBS END
+    ==============================-->
+
+
+    <!--=============================
+        LOGIN START
+    ==============================-->
+    <section class="login_area pt_120 xs_pt_100 pb_120 xs_pb_100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8 col-xl-11">
+                    <div class="main_login_area">
+                        <div class="row">
+                            <div class="col-xl-6 wow fadeInLeft" data-wow-duration="1.5s">
+                                <div class="login_text">
+                                    <h4>Two-Factor Authentication</h4>
+                                    <div class="login_error hidden">
+                                        <p class="login_p">Invalid code</p>
+                                    </div>
+                                    <form class="verification-form" data-2fa-form="data-2fa-form">
+                                        <div class="form__group form__pincode">
+                                            <label>Enter 6-digit code from your authenticator application</label>
+                                            <input type="number" name="pincode-1" id="pincode-1" maxlength="1" tabindex="1" autocomplete="off">
+                                            <input type="number" name="pincode-2" id="pincode-2" maxlength="1" tabindex="2" autocomplete="off">
+                                            <input type="number" name="pincode-3" id="pincode-3" maxlength="1" tabindex="3" autocomplete="off">
+                                            <input type="number" name="pincode-4" id="pincode-4" maxlength="1" tabindex="4" autocomplete="off">
+                                            <input type="number" name="pincode-5" id="pincode-5" maxlength="1" tabindex="5" autocomplete="off">
+                                            <input type="number" name="pincode-6" id="pincode-6" maxlength="1" tabindex="6" autocomplete="off">
+                                        </div>
+                                    </form>
+                                    <!-- <input type="hidden" name="csrfToken" value="<%= csrfToken %>"> -->
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button class="common_btn" type="submit" id="submit_otp" name="submit_otp" disabled>Verify</button>
+                                    </div>
+
+                                    <p class="p_recovery">Use recovery code instead</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 d-none d-xl-block wow fadeInRight" data-wow-duration="1.5s">
+                                <div class=" login_img">
+                                    <img src="/assets/images/login_bg1.jpg" alt="img" class="img-fluid w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        LOGIN END
+    ==============================-->
+
+    <%- include('../includes/footer.ejs') %>
+    <script src="/assets/js/jquery.mockjax.min.js"></script>
+    <script src="/assets/js/otpLogin.js"></script>
+
+</body>
+
+</html>

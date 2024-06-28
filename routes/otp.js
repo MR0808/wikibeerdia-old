@@ -23,4 +23,14 @@ router.post(
     otpController.postDisableOtp
 );
 
+router.post(
+    '/resetcodes',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    otpController.postResetCodes
+);
+
+router.post('/validate', otpController.postValidateOtp);
+
+router.post('/recovery', otpController.postValidateRecoveryCode);
+
 export default router;

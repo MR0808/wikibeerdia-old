@@ -136,6 +136,7 @@ export async function postValidateOtp(req, res, next) {
             return res.status(200).json({ data: data });
         }
 
+        req.session.isLoggedIn = true;
         data = { result: 'success' };
         return res.status(200).json({ data: data });
     } catch (err) {
@@ -161,11 +162,86 @@ export async function postDisableOtp(req, res, next) {
         req.session.user = await user.save();
         data = { result: 'success' };
         return res.status(200).json({ data: data });
-    } catch (error) {
-        res.status(500).json({
-            status: 'error',
-            message: error.message
-        });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postResetCodes(req, res, next) {
+    try {
+        const user = await User.findById(req.session.user);
+        if (!user) {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'No user with that email exists'
+            });
+        }
+
+        const recoveryCodes = [];
+        const recoveryCodesHashed = [];
+        for (let i = 0; i < 6; i++) {
+            const recoveryCode = generateRandomString(6);
+            let chars = [...recoveryCode];
+            chars.splice(3, 0, '-');
+            const hashedCode = await bcrypt.hash(recoveryCode, 12);
+            recoveryCodes.push(chars.join(''));
+            recoveryCodesHashed.push({ backup_code: hashedCode });
+        }
+        user.otp_backups = recoveryCodesHashed;
+        user.otp_enabled = true;
+        user.otp_verified = true;
+        req.session.user = await user.save();
+        const data = { result: 'success', recoveryCodes: recoveryCodes };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}
+
+export async function postValidateRecoveryCode(req, res, next) {
+    try {
+        const code = req.body.code.replace('-', '');
+        const user = await User.findById(req.session.user);
+
+        const otp_backups = user.otp_backups;
+
+        // console.log(
+        //     otp_backups.find((code) => code.backup_code === hashedCode)
+        // );
+
+        let passed = false;
+        for (let c in otp_backups) {
+            const doMatch = await bcrypt.compare(
+                code,
+                otp_backups[c].backup_code
+            );
+            if (doMatch) {
+                passed = true;
+                otp_backups.splice(c, 1);
+            }
+        }
+        let data;
+        if (passed) {
+            user.otp_backups = otp_backups;
+            req.session.user = await user.save();
+            req.session.isLoggedIn = true;
+            data = { result: 'success' };
+            return res.status(200).json({ data: data });
+        } else {
+            data = { result: 'error' };
+            return res.status(200).json({ data: data });
+        }
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
     }
 }
 

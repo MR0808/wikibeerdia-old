@@ -16,7 +16,8 @@ export const getLogin = (req, res, next) => {
         pageTitle: 'Login',
         loginError: false,
         oldInput: {
-            email: ''
+            email: '',
+            remember: true
         },
         validationErrors: []
     });
@@ -25,6 +26,7 @@ export const getLogin = (req, res, next) => {
 export async function postLogin(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
+    const remember = req.body.remember;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).render('auth/login', {
@@ -32,7 +34,8 @@ export async function postLogin(req, res, next) {
             pageTitle: 'Login',
             loginError: false,
             oldInput: {
-                email: email
+                email: email,
+                remember: remember
             },
             validationErrors: errors.array()
         });
@@ -47,7 +50,8 @@ export async function postLogin(req, res, next) {
                 pageTitle: 'Login',
                 loginError: true,
                 oldInput: {
-                    email: email
+                    email: email,
+                    remember: remember
                 },
                 validationErrors: []
             });
@@ -59,21 +63,26 @@ export async function postLogin(req, res, next) {
                 pageTitle: 'Login',
                 loginError: true,
                 oldInput: {
-                    email: email
+                    email: email,
+                    remember: remember
                 },
                 validationErrors: []
             });
         } else {
-            if (req.body.remember) {
+            if (remember) {
                 const hour = 3600000;
                 req.session.cookie.maxAge = 14 * 24 * hour; //2 weeks
             } else {
                 req.session.cookie.expires = false;
             }
-            req.session.isLoggedIn = true;
             req.session.user = user;
             await req.session.save();
-            res.redirect('/');
+            if (user.otp_enabled) {
+                res.redirect('/otp');
+            } else {
+                req.session.isLoggedIn = true;
+                res.redirect('/');
+            }
         }
     } catch (err) {
         const error = new Error(err);
@@ -81,6 +90,18 @@ export async function postLogin(req, res, next) {
         return next(error);
     }
 }
+
+export const getOtpValidation = (req, res, next) => {
+    if (req.session.isLoggedIn) {
+        return res.redirect('/');
+    }
+    res.render('auth/otp', {
+        path: '/otp',
+        pageTitle: 'Two-Factor Authentication',
+        validationErrors: [],
+        otpError: false
+    });
+};
 
 export const getSignup = (req, res, next) => {
     if (req.session.isLoggedIn) {

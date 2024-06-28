@@ -39,4 +39,6 @@ router.post(
 
 router.post('/checkUsername', authController.postCheckUsername);
 
+router.get('/otp', authController.getOtpValidation);
+
 export default router;

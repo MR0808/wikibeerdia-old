@@ -2,7 +2,7 @@
 
 <body>
     <%- include('../includes/navigation.ejs') %>
-    
+
     <!--=============================
         BREADCRUMBS START
     ==============================-->
@@ -41,16 +41,16 @@
                                 <div class=" login_text">
                                     <h4>Login</h4>
                                     <% if (loginError) { %>
-                                        <div class="login_error">
-                                            <p class="login_p">Invalid username or password</p>
-                                        </div>
+                                    <div class="login_error">
+                                        <p class="login_p">Invalid username or password</p>
+                                    </div>
                                     <% } %>
                                     <form action="/login" method="POST" novalidate>
                                         <div class="single_input">
                                             <label>Email/Username</label>
                                             <input type="text" name="email" id="email" placeholder="Email/Username" class="<%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>" value="<%= oldInput.email %>">
                                             <% if (validationErrors.find( e => e.path === 'email')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
+                                            <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
                                                     const emailError = validationErrors.find( e => e.path === 'email');
                                                     %><%= emailError.msg; %></p>
                                             <% } %>
@@ -59,15 +59,13 @@
                                             <label>Password</label>
                                             <input type="password" name="password" id="password" placeholder="********" class="<%= validationErrors.find( e => e.path === 'password') ? 'invalid' : '' %>">
                                             <% if (validationErrors.find( e => e.path === 'password')) { %>
-                                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a valid password</p>
+                                            <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a valid password</p>
                                             <% } %>
                                         </div>
-                                        <div
-                                            class="single_input d-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="single_input d-flex flex-wrap align-items-center justify-content-between">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="rememeber" name="remember">
-                                                <label class="form-check-label" for="flexCheckDefault">
+                                                <input class="form-check-input" type="checkbox" value="true" id="remember" name="remember" <% if (oldInput.remember) { %>checked<% } %>>
+                                                <label class="form-check-label" for="remember">
                                                     Remember me
                                                 </label>
                                             </div>
