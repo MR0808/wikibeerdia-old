@@ -499,3 +499,90 @@ resetCodesModal.addFooterBtn(
         resetCodesModal.close();
     }
 );
+
+// Setup OTP
+
+$(document).on('click', '#passwordForm', function () {
+    if ($('#passwordForm').text() === 'Cancel') {
+        $('#password').removeClass('invalid');
+        $('.password_error').addClass('hidden');
+        $('#password').val(null);
+        $('#confirmPassword').removeClass('invalid');
+        $('.confirmPassword_error').addClass('hidden');
+        $('#confirmPassword').val(null);
+        $('#password').addClass('passwordReset');
+    }
+});
+
+$(document).on('click', '#submit_passwordForm', function () {
+    $('#submit_passwordForm').addClass('loading');
+    if ($('#password').val() !== $('#confirmPassword').val()) {
+        $('#password').addClass('invalid');
+        $('#confirmPassword').addClass('invalid');
+        $('.confirmPassword_error').removeClass('hidden');
+        $('#submit_passwordForm').removeClass('loading');
+    } else {
+        $('#password').removeClass('invalid');
+        $('#confirmPassword').removeClass('invalid');
+        $('.confirmPassword_error').addClass('hidden');
+        changePassword();
+    }
+});
+
+async function changePassword() {
+    let jsonData;
+    const formData = {
+        password: $('#password').val(),
+        confirmPassword: $('#confirmPassword').val()
+    };
+    try {
+        const returnedData = await fetch('/account/security/password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        console.log(data.errors);
+        if (data.result === 'error') {
+            if (data.errors.find((e) => e.path === 'password')) {
+                $('#password').addClass('invalid');
+                $('#password').removeClass('passwordReset');
+                $('.password_error').removeClass('hidden');
+            } else {
+                $('#password').removeClass('invalid');
+                $('#password').addClass('passwordReset');
+                $('.password_error').addClass('hidden');
+            }
+            if (data.errors.find((e) => e.path === 'confirmPassword')) {
+                $('#confirmPassword').addClass('invalid');
+                $('.confirmPassword_error').removeClass('hidden');
+            } else {
+                $('#confirmPassword').removeClass('invalid');
+                $('.confirmPassword_error').addClass('hidden');
+            }
+            $('#submit_passwordForm').removeClass('loading');
+        } else {
+            $('#password').removeClass('invalid');
+            $('.password_error').addClass('hidden');
+            $('#password').addClass('passwordReset');
+            $('#confirmPassword').removeClass('invalid');
+            $('.confirmPassword_error').addClass('hidden');
+            $('#submit_usernameForm').removeClass('loading');
+            $('#passwordForm').text('Edit');
+            $('.form_passwordForm').addClass('hidden');
+            $('.button_passwordForm').addClass('hidden');
+            $('#submit_passwordForm').removeClass('loading');
+            $('#formNotification').text('Password successfully updated');
+            $('#formNotification').fadeIn();
+            setTimeout(function () {
+                $('#formNotification').fadeOut();
+            }, 2000);
+        }
+    } catch (e) {
+        alert(e);
+        throw new Error(e);
+    }
+}

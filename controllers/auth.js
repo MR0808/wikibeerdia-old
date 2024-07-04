@@ -81,6 +81,7 @@ export async function postLogin(req, res, next) {
                 res.redirect('/otp');
             } else {
                 req.session.isLoggedIn = true;
+                await req.session.save();
                 res.redirect('/');
             }
         }

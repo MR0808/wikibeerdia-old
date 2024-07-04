@@ -36,9 +36,13 @@ const buildHierarchyAncestors = async (categoryId, parentId) => {
     }
 };
 
-export const addStyle = async (name, parentId) => {
+export const addStyle = async (name, parentId, description) => {
     let parent = parentId ? parentId : null;
-    const category = new Style({ name: name, parent });
+    const category = new Style({
+        name: name,
+        parent,
+        description: description
+    });
     try {
         let newCategory = await category.save();
         buildAncestors(newCategory._id, parent);
@@ -54,8 +58,9 @@ export const addStyle = async (name, parentId) => {
 export const getStyle = async (slug) => {
     try {
         const result = await Style.find({ slug: slug }).select({
-            _id: false,
+            _id: true,
             name: true,
+            description: true,
             'ancestors.slug': true,
             'ancestors.name': true
         });
@@ -72,7 +77,7 @@ export const getStyleDescendants = async (categoryId) => {
     try {
         const result = await Style.find({
             'ancestors._id': categoryId
-        }).select({ _id: true, name: true });
+        }).select({ _id: true, name: true, description: true });
         return result;
     } catch (error) {
         if (!error.code) {

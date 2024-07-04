@@ -51,8 +51,9 @@ export async function postBreweryType(req, res, next) {
 
 export async function postAddStyle(req, res, next) {
     const name = req.body.name;
+    const description = req.body.description;
     const parentId = req.body.parentId;
-    const newId = await style.addStyle(name, parentId);
+    const newId = await style.addStyle(name, parentId, description);
     return res.send(newId);
 }
 

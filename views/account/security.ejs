@@ -98,6 +98,25 @@
                                 </div>
                                 <div class="account_option_item">
                                     <div class="account_option_item_text">
+                                        <h3>
+                                            Password
+                                            <span class="edit_link" id="passwordForm">Edit</span>
+                                        </h3>
+                                        <div class="account_form hidden form_passwordForm">
+                                            <input type="password" id="password" name="password" class="passwordReset" placeholder="Password">
+                                            <p class="hidden form_error_text password_error"><i class="fas fa-exclamation-triangle"></i> Please enter a valid and secure password</p>
+                                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                                            <p class="hidden form_error_text confirmPassword_error"><i class="fas fa-exclamation-triangle"></i> Passwords must match</p>
+                                        </div>
+                                        <div class="row account_form hidden button_passwordForm">
+                                            <div class="col animated_button">
+                                                <button class="common_btn" id="submit_passwordForm" type="submit">Update</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="account_option_item">
+                                    <div class="account_option_item_text">
                                         <h3>Mobile App Authentication (2FA)
                                             <div class="tan <% if (!user.otp_enabled) { %>hidden<% } %>">Enabled</div>
                                         </h3>

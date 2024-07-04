@@ -1,6 +1,17 @@
 <!--=============================
         MAIN MENU START
     ==============================-->
+<% if (!isVerified && typeof blackHeading === 'undefined') { %>
+<div class="header-top">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col">
+                <p>Please verify your email to get full access to the site! <a href="/account/security">Verify here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
 <nav class="navbar navbar-expand-lg main_menu <% if (typeof blackHeading !== 'undefined') { %>main_menu_black<% } %>">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -16,15 +27,25 @@
                     <a class="nav-link <% if (path === '/index') { %>active<% } %>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about_us.html">About</a>
+                    <a class="nav-link" href="#">Education <i class="far fa-angle-down"></i></a>
+                    <ul class="droap_menu">
+                        <li><a href="#">Coming soon!</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Listing <i class="far fa-angle-down"></i></a>
+                    <a class="nav-link" href="#">Breweries <i class="far fa-angle-down"></i></a>
                     <ul class="droap_menu">
                         <li><a href="listing_grid_view.html">listing grid view</a></li>
                         <li><a href="listing_left_sidebar.html">listing left sidebar</a></li>
                         <li><a href="listing_right_sidebar.html">listing right sidebar</a></li>
                         <li><a href="listing_details.html">listing details</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Beers <i class="far fa-angle-down"></i></a>
+                    <ul class="droap_menu">
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="blog_details.html">Blog details</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -34,6 +55,7 @@
                         <li><a href="blog_details.html">Blog details</a></li>
                     </ul>
                 </li>
+                <% if (isAuthenticated) { %>
                 <li class="nav-item d-lg-none">
                     <a class="nav-link" href="#">User <i class="far fa-angle-down"></i></a>
                     <ul class="droap_menu">
@@ -47,6 +69,10 @@
                             </form>
                         </li>
                     </ul>
+                </li>
+                <% } %>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact">Contact</a>
                 </li>
             </ul>
         </div>

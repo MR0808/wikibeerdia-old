@@ -316,85 +316,27 @@ export async function postSecurityUsername(req, res, next) {
     }
 }
 
-// export async function postSecurityEnable2FA(req, res, next) {
-//     try {
-//         const user = await User.findById(req.session.user);
-//         const base32_secret = generateBase32Secret();
-//         req.session.user = await User.updateOne(
-//             { _id: user },
-//             { secrets2fa: base32_secret }
-//         );
-//         let totp = new OTPAuth.TOTP({
-//             issuer: 'wikibeerdia.com',
-//             label: 'Wikibeerdia',
-//             algorithm: 'SHA1',
-//             digits: 6,
-//             secret: base32_secret
-//         });
-//         let otpauth_url = totp.toString();
-//         QRCode.toDataURL(otpauth_url, (err) => {
-//             if (err) {
-//                 return res.status(500).json({
-//                     status: 'fail',
-//                     message: 'Error while generating QR Code'
-//                 });
-//             }
-//             res.json({
-//                 status: 'success',
-//                 data: {
-//                     qrCodeUrl: qrUrl,
-//                     secret: base32_secret
-//                 }
-//             });
-//         });
-//     } catch (err) {
-//         console.log(err);
-//         const error = new Error(err);
-//         error.httpStatusCode = 500;
-//         return next(error);
-//     }
-// }
-
-// export async function postSecurityVerify2FA(req, res, next) {
-//     const token = req.body.token;
-//     const user = await User.findById(req.session.user);
-//     if (!user) {
-//         return res.status(404).json({
-//             status: 'fail',
-//             message: 'User does not exist'
-//         });
-//     }
-//     // verify the token
-//     const totp = new OTPAuth.TOTP({
-//         issuer: 'codeninjainsights.com',
-//         label: 'codeninjainsights',
-//         algorithm: 'SHA1',
-//         digits: 6,
-//         secret: user.secrets2fa
-//     });
-//     const delta = totp.validate({ token });
-
-//     if (delta === null) {
-//         return res.status(401).json({
-//             status: 'fail',
-//             message: 'Authentication failed'
-//         });
-//     }
-
-//     // update the  user status
-//     if (!user.enable2fa) {
-//         await User.updateOne({ _id: user._id }, { enable2fa: true });
-//     }
-
-//     res.json({
-//         status: 'success',
-//         data: {
-//             otp_valid: true
-//         }
-//     });
-// }
-
-// const generateBase32Secret = () => {
-//     const buffer = crypto.randomBytes(15);
-//     return encode(buffer).replace(/=/g, '').substring(0, 24);
-// };
+export async function postSecurityPasword(req, res, next) {
+    let errors = [];
+    let data;
+    let password = req.body.password;
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        data = { result: 'error', errors: errors.array() };
+        return res.status(200).json({ data: data });
+    }
+    try {
+        let user = await User.findOne({ _id: req.session.user });
+        const hashedPassword = await bcrypt.hash(password, 12);
+        user.password = hashedPassword;
+        user.passwordLastUpdated = new Date();
+        req.session.user = await user.save();
+        data = { result: 'success' };
+        return res.status(200).json({ data: data });
+    } catch (err) {
+        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    }
+}

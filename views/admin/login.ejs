@@ -1,0 +1,60 @@
+<%- include('../includes/adminHeader.ejs') %>
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <div class="auth-main v1">
+        <div class="auth-wrapper">
+            <div class="auth-form">
+                <div class="card my-5">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="/adminAssets/images/loginlogo.png" alt="images" class="mb-3" height="120px">
+                            <h4 class="f-w-500 mb-3">Login with your email</h4>
+                        </div>
+                        <form action="/admin/login" method="POST" novalidate>
+                            <div class="mb-3">
+                                <input type="email" name="email" id="email" placeholder="Email/Username" class="form-control <%= validationErrors.find( e => e.path === 'email') ? 'invalid' : '' %>" value="<%= oldInput.email %>">
+                                <% if (validationErrors.find( e => e.path === 'email')) { %>
+                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> <% 
+                                                        const emailError = validationErrors.find( e => e.path === 'email');
+                                                        %><%= emailError.msg; %></p>
+                                <% } %>
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" name="password" id="password" placeholder="Password" class="form-control <%= validationErrors.find( e => e.path === 'password') ? 'invalid' : '' %>">
+                                <% if (validationErrors.find( e => e.path === 'password')) { %>
+                                <p class="error_text"><i class="fas fa-exclamation-triangle"></i> Please enter a valid password</p>
+                                <% } %>
+                            </div>
+                            <div class="d-flex mt-1 justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input input-primary" type="checkbox" value="true" id="remember" name="remember" <% if (oldInput.remember) { %>checked<% } %>>
+                                    <label class="form-check-label text-muted" for="remember">Remember me?</label>
+                                </div>
+                                <a href="/admin/reset">
+                                    <h6 class="f-w-400 mb-0">Forgot Password?</h6>
+                                </a>
+                            </div>
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../includes/adminFooter.ejs') %>
+
+</body>
+<!-- [Body] end -->
+
+</html>

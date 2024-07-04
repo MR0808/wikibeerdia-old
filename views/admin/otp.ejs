@@ -1,0 +1,47 @@
+<%- include('../includes/adminHeader.ejs') %>
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <div class="auth-main v1">
+        <div class="auth-wrapper">
+            <div class="auth-form">
+                <div class="card my-5">
+                    <form class="verification-form" data-2fa-form="data-2fa-form">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="/adminAssets/images/img-auth-code-varify.png" alt="images" class="img-fluid mb-3">
+                                <h4 class="f-w-500 mb-1">Please confirm with OTP</h4>
+                            </div>
+                            <div class="row my-4 g-3 text-center form__group form__pincode" id="otp-input">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-1" id="pincode-1" step="1" min="0" max="9" tabindex="1" autocomplete="off">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-2" id="pincode-2" step="1" min="0" max="9" tabindex="2" autocomplete="off">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-3" id="pincode-3" step="1" min="0" max="9" tabindex="3" autocomplete="off">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-4" id="pincode-4" step="1" min="0" max="9" tabindex="4" autocomplete="off">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-5" id="pincode-5" step="1" min="0" max="9" tabindex="5" autocomplete="off">
+                                <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-6" id="pincode-6" step="1" min="0" max="9" tabindex="6" autocomplete="off">
+                            </div>
+                            <div class="row d-grid mt-4">
+                                <input type="hidden" name="otp" id="otp">
+                                <button type="submit" id="submit_otp" class="btn btn-primary">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <%- include('../includes/adminFooter.ejs') %>
+    <script src="/adminAssets/js/otpLogin.js"></script>
+</body>
+<!-- [Body] end -->
+
+</html>

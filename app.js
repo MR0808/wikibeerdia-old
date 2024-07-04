@@ -75,6 +75,7 @@ import locationRoutes from './routes/location.js';
 import breweryRoutes from './routes/brewery.js';
 import accountRoutes from './routes/account.js';
 import otpRoutes from './routes/otp.js';
+import adminRoutes from './routes/admin.js';
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -109,6 +110,12 @@ app.use((req, res, next) => {
     // res.locals.csrfToken = req.csrfToken(true);
     res.locals.csrfToken = true;
     res.locals.userLoggedIn = req.session.user;
+    const user = req.session.user;
+    if (typeof user !== 'undefined') {
+        res.locals.isVerified = user.isVerified;
+    } else {
+        res.locals.isVerified = true;
+    }
     next();
 });
 
@@ -119,6 +126,7 @@ app.use('/location', locationRoutes);
 app.use('/breweries', breweryRoutes);
 app.use('/account', accountRoutes);
 app.use('/otp', otpRoutes);
+app.use('/admin', adminRoutes);
 
 app.get('/500', errorController.get500);
 

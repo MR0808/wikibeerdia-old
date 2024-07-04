@@ -83,4 +83,11 @@ router.post(
     accountController.postSecurityUsername
 );
 
+router.post(
+    '/security/password',
+    (res, req, next) => isAuth(res, req, next, 'user'),
+    ...validators.securityPassword,
+    accountController.postSecurityPasword
+);
+
 export default router;

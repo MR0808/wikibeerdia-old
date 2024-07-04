@@ -8126,3 +8126,11 @@ button:disabled {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.passwordReset {
+    margin-bottom: 20px;
+}
+
+.header-top {
+    padding: 10px 0;
+}

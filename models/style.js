@@ -11,6 +11,7 @@ var styleSchema = new Schema(
             type: String,
             index: true
         },
+        description: String,
         parent: {
             type: mongoose.Schema.Types.ObjectId,
             default: null,
