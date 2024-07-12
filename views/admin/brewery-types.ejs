@@ -1,0 +1,125 @@
+<%- include('../includes/adminHeader.ejs') %>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr" data-pc-theme="light">
+    <%- include('../includes/adminNavigation.ejs') %>
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Brewery Types</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h2 class="mb-0">Brewery Types</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ sample-page ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-end p-sm-4 pb-sm-2">
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTypeModal" data-bs-slug="" data-bs-name="" data-bs-method="add"> <i class="ti ti-plus f-18"></i> Add Brewery Type </a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered nowrap dataTable" id="dt-breweryTypes">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (let type of types) { %>
+                                        <tr>
+                                            <td><%=type.name %></td>
+                                            <td>
+                                                <% if (type.status === 'Pending') { %>
+                                                <span class="badge bg-light-primary">Pending</span>
+                                                <% } else { %>
+                                                <span class="badge bg-light-secondary">Approved</span>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <div class="prod-action-links">
+                                                    <ul class="list-inline me-auto mb-0">
+                                                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Edit">
+                                                            <a href="#" class="avtar avtar-xs btn-link-success btn-pc-default" id="editType" data-bs-toggle="modal" data-bs-target="#editTypeModal" data-bs-id="<%=type._id %>" data-bs-name="<%=type.name %>" data-bs-method="edit">
+                                                                <i class="ti ti-edit-circle f-18"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item align-bottom" data-bs-toggle="tooltip" title="Delete">
+                                                            <a href="#" class="avtar avtar-xs btn-link-danger btn-pc-default">
+                                                                <i class="ti ti-trash f-18"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ sample-page ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <!-- [ varying-modal ] start -->
+
+    <div class="modal fade" id="editTypeModal" tabindex="-1" role="dialog" aria-labelledby="editTypeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTypeModal">Edit Brewery Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control is-invalid" id="name">
+                            <div class="invalid-feedback"> Please enter a message in the textarea. </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="form-control" id="id">
+                    <input type="hidden" class="form-control" id="method">
+                    <input type="hidden" class="form-control" id="oldName">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateButton">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ varying-modal ] end -->
+
+    <%- include('../includes/adminFooter.ejs') %>
+    <!-- [Page Specific JS] start -->
+    <script src="/adminAssets/js/plugins/datatables.min.js"></script>
+    <script src="/adminAssets/js/breweryTypes.js"></script>
+    <!-- [Page Specific JS] end -->
+
+</body>
+
+</html>

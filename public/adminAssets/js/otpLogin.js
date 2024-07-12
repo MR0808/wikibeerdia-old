@@ -96,41 +96,48 @@
             return otp;
         }, '');
         document.querySelector('input[name=otp]').value = inputValue;
+        if (inputs.length === inputValue.trim().length) {
+            $('#submit_otp').prop('disabled', false);
+        } else {
+            $('#submit_otp').prop('disabled', true);
+        }
     }
 })();
 
-// $(document).on('click', '#submit_otp', function () {
-//     $('#submit_otp').addClass('loading');
-//     validateToken();
-// });
+$(document).on('click', '#submit_otp', function () {
+    $('#submit_otp').addClass('loading');
+    $('#submit_otp').text('');
+    validateToken();
+});
 
-// async function validateToken() {
-//     let jsonData;
-//     const formData = {
-//         token: n
-//     };
-//     try {
-//         const returnedData = await fetch('/otp/validate', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(formData)
-//         });
-//         jsonData = await returnedData.json();
-//         const data = jsonData.data;
-//         if (data.result === 'error') {
-//             $('.login_error').removeClass('hidden');
-//             $('#submit_otp').removeClass('loading');
-//         } else {
-//             window.location.replace('/');
-//         }
-//     } catch (e) {
-//         console.log(e.stack);
-//         alert(e);
-//         throw new Error(e);
-//     }
-// }
+async function validateToken() {
+    let jsonData;
+    const formData = {
+        token: $('#otp').val()
+    };
+    try {
+        const returnedData = await fetch('/otp/validate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        jsonData = await returnedData.json();
+        const data = jsonData.data;
+        if (data.result === 'error') {
+            $('.login_error').removeClass('hidden');
+            $('#submit_otp').removeClass('loading');
+            $('#submit_otp').text('Continue');
+        } else {
+            window.location.replace('/admin');
+        }
+    } catch (e) {
+        console.log(e.stack);
+        alert(e);
+        throw new Error(e);
+    }
+}
 
 // const recoveryCodeModal = new tingle.modal({
 //     footer: true

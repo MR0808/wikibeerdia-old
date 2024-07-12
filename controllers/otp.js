@@ -104,6 +104,7 @@ export async function postVerifyOtp(req, res, next) {
 export async function postValidateOtp(req, res, next) {
     try {
         const { token } = req.body;
+        console.log(token);
         const user = await User.findById(req.session.user);
         if (!user) {
             return res.status(404).json({
@@ -120,8 +121,8 @@ export async function postValidateOtp(req, res, next) {
             });
         }
         let totp = new OTPAuth.TOTP({
-            issuer: 'codevoweb.com',
-            label: 'CodevoWeb',
+            issuer: 'wikibeerdia.com',
+            label: 'Wikibeerdia',
             algorithm: 'SHA1',
             digits: 6,
             secret: user.otp_base32

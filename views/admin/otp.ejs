@@ -20,6 +20,9 @@
                                 <img src="/adminAssets/images/img-auth-code-varify.png" alt="images" class="img-fluid mb-3">
                                 <h4 class="f-w-500 mb-1">Please confirm with OTP</h4>
                             </div>
+                            <div class="login_error hidden">
+                                <p class="login_p">Invalid code</p>
+                            </div>
                             <div class="row my-4 g-3 text-center form__group form__pincode" id="otp-input">
                                 <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-1" id="pincode-1" step="1" min="0" max="9" tabindex="1" autocomplete="off">
                                 <input type="number" class="form-control text-center otpInput" placeholder="0" name="pincode-2" id="pincode-2" step="1" min="0" max="9" tabindex="2" autocomplete="off">
@@ -30,7 +33,7 @@
                             </div>
                             <div class="row d-grid mt-4">
                                 <input type="hidden" name="otp" id="otp">
-                                <button type="submit" id="submit_otp" class="btn btn-primary">Continue</button>
+                                <button type="button" id="submit_otp" class="btn btn-primary" disabled>Continue</button>
                             </div>
                         </div>
                     </form>

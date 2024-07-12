@@ -10,6 +10,10 @@ var breweryTypeSchema = new Schema(
             type: String,
             required: true
         },
+        status: {
+            type: String,
+            enum: ['Pending', 'Approved']
+        },
         slug: {
             type: String,
             index: true

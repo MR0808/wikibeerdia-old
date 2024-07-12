@@ -31096,3 +31096,46 @@ input.invalid, textarea.invalid, img.invalid {
 #otp-input input[type=number] {
   -moz-appearance:textfield; /* Firefox */
 }
+
+.loading::after {
+  content: "";
+  /* position: absolute; */
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+  display: block;
+}
+
+@keyframes button-loading-spinner {
+  from {
+      transform: rotate(0turn);
+  }
+
+  to {
+      transform: rotate(1turn);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.login_error {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 0px;
+  background: #FFCCCC;
+  text-align: center;
+}
+
+.login_p {
+  margin: 0px !important;
+}
